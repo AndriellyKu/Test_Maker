@@ -1,4 +1,4 @@
-html, body {
+.super-all-container {
     margin: 0;
     padding: 20px;
     background-color: #191919;
@@ -57,7 +57,7 @@ h2 {
     color: #E0E0E0;
 }
 
-hr {
+.corte-esctreito {
     border-color: #4E4E4E;
     border-style: solid;
 }

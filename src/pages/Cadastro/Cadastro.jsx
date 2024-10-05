@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import './Cadastro.css';
 import backgroundImage from '../../assets/imagens/BackgroundGradientLogin.gif';
 import { Link, useNavigate } from "react-router-dom"; 
@@ -6,6 +6,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as yup from 'yup';
 import axios from "axios";
 
+// Validação com Yup
 const ValidationCadastro = yup.object().shape({
     email: yup.string().email('Email inválido').required('Email é obrigatório'),
     password: yup.string().min(8, 'Senha deve ter no mínimo 8 caracteres').required('Senha é obrigatória'),
@@ -15,28 +16,43 @@ const ValidationCadastro = yup.object().shape({
 });
 
 const Cadastro = () => {
+  const [previewImage, setPreviewImage] = useState(null);
   const navigate = useNavigate(); 
 
+  // Função para lidar com o envio do formulário
   const handleClickCadastro = async (values) => {
-    console.log('Dados cadastrados:', values);
-  
-    try {
-      
-      const response = await axios.post('http://localhost:3000/auth/register', values);
-  
+    const formData = new FormData();
+    formData.append('profilePicture', values.profilePicture); 
+    formData.append('email', values.email);
+    formData.append('password', values.password);
+    formData.append('username', values.username);
+    formData.append('userType', values.userType);
+    formData.append('escola', values.escola);
 
-      if (response.status === 201) {
-        navigate("/login"); 
-      } else {
-        console.error('Erro no cadastro:', response.data.msg);
-        alert(response.data.msg); 
-      }
+    try {
+        const response = await axios.post('http://localhost:3000/auth/register', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        console.log('Cadastro realizado com sucesso', response.data);
+        navigate("/login"); // Redireciona para a página de login após cadastro bem-sucedido
     } catch (error) {
-      console.error('Erro ao se conectar com o backend:', error.response?.data || error.message);
-      alert('Erro ao se conectar com o backend. Tente novamente mais tarde.');
+        console.error('Erro ao se conectar com o backend:', error);
     }
   };
-  
+
+  const handleImageChange = (event, setFieldValue) => {
+    const file = event.currentTarget.files[0];
+    if (file) {
+      setFieldValue("profilePicture", file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <div className="CadastroFundo" style={{ backgroundImage: `url(${backgroundImage})` }}>
@@ -51,10 +67,10 @@ const Cadastro = () => {
             profilePicture: null
           }}
           validationSchema={ValidationCadastro}
-          onSubmit={handleClickCadastro}
+          onSubmit={handleClickCadastro} // Aqui passa os valores para a função de cadastro
         >
-          {({ setFieldValue, errors, touched }) => (
-            <Form className="CadastroForm">
+          {({ setFieldValue, values }) => (
+            <Form className="CadastroForm" encType="multipart/form-data">
               <h1 className="CadLeg">Cadastro</h1>
               <div className="Organizacao-cadastro-containerum">
                 <div className="Container-particao-cadastro">
@@ -71,8 +87,9 @@ const Cadastro = () => {
                   <ErrorMessage name="password" component="div" className="error-message" />
                 </div>
                 <div className="Container-particao-cadastrodois">
-                  <label  className="etiquetaCadastro" htmlFor="userType">Você é</label>
+                  <label className="etiquetaCadastro" htmlFor="userType">Você é</label>
                   <Field className="Cadastrocampo" as="select" name="userType">
+                    <option value="">Selecione</option>
                     <option className="opt-usertype" value="professor">Professor</option>
                     <option className="opt-usertype" value="aluno">Aluno</option>
                   </Field>
@@ -88,10 +105,9 @@ const Cadastro = () => {
                     type="file"
                     accept="image/*"
                     name="profilePicture"
-                    onChange={(event) => {
-                      setFieldValue("profilePicture", event.currentTarget.files[0]);
-                    }}
+                    onChange={(event) => handleImageChange(event, setFieldValue)}  // Função para pré-visualizar a imagem
                   />
+                  {previewImage && <img src={previewImage} alt="Prévia da Imagem" style={{ maxHeight: '100px' }} />}
                 </div>
               </div>  
               <button className="BtnSubmitC" type="submit">Cadastrar</button>

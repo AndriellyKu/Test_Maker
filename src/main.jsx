@@ -6,6 +6,7 @@ import Cadastro from './pages/Cadastro/Cadastro.jsx';
 import AlunoHome from './pages/Home/AlunoHome.jsx';
 import ProfessorHome from './pages/Home/ProfessorHome.jsx'; // Importando ProfessorHome
 import Maker from './pages/Maker/Maker.jsx';
+import SalaProfessor from './pages/Sala/SalaProfessor.jsx';
 
 const router = createBrowserRouter([
   {
@@ -22,11 +23,18 @@ const router = createBrowserRouter([
   },
   {
     path: "/professorHome",
-    element: <ProfessorHome/> // O nome do componente real
+    element: <ProfessorHome/> 
   },
   {
     path:"/maker",
     element: <Maker/>
+  },
+  {
+    path:"/salaprofessor",
+    element: <SalaProfessor/>
+  },
+  {
+
   }
 ]);
 

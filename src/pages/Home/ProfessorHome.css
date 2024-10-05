@@ -1,0 +1,271 @@
+.all-all-container{
+    background-color: #242424;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+}
+
+.Hehader {
+    background-color: #333;
+}
+
+.logo {
+    height: 50px;
+}
+
+.card {
+    background-color: #202020;
+    border: 2px solid #E3CDFE;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 700px;
+    color: #fff;
+}
+
+
+.card i {
+    color: #fff;
+    cursor: pointer;
+}
+
+#advance-btn {
+    background-color: #E3CDFE;
+    color: #242424;
+    border: none;
+    cursor: pointer;
+    border-radius: 40px;
+}
+
+#advance-btn:hover {
+    background-color: #ccc;
+}
+
+#exam-name {
+    background-color: #191919;
+    border: none;
+    border-radius: 20px;
+    color: #ccc;
+}
+
+#exam-name::placeholder,
+#exam-description::placeholder {
+    color: #a8a8a8;
+    opacity: 1;
+}
+
+#exam-description {
+    height: 200px;
+    background-color: #191919;
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    padding: 10px;
+}
+
+.container_branding {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.fundo-cor-cinza{
+    background-color: #333;
+    color: #a8a8a8;
+    border: none;
+    width: 41vw;
+    height: 5vh;
+    margin: 8px;
+    border-radius: 5px;
+    padding: 0% 2%;
+}
+
+.tub-n-borda{
+    border: none;
+    padding: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease; 
+}
+
+.tub-n-borda::hover{
+    transform: scale(1.1); 
+    opacity: 0.8; 
+    cursor: pointer;
+}
+
+.btn-crt {
+    background-color: #E3CDFE; 
+    padding: 6px 18px;
+    border-radius: 9999px;
+    border: none; 
+    transition: transform 0.2s ease-in-out; 
+}
+
+.btn-crt:hover {
+    transform: scale(1.08); 
+}
+
+.criar-nova-turma-card {
+    cursor: pointer;
+    border: 2px dashed #393839;
+    background-color: #d1b6f1;
+    height: 250px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.criar-nova-turma-card:hover {
+    background-color: #b38fdf; 
+    transform: scale(1.05); 
+}
+
+.btn-cncl {
+    background-color: #2f2f2f; 
+    color: #a8a8a8;
+    padding: 6px 18px;
+    border-radius: 9999px;
+    border: none; 
+    transition: transform 0.2s ease-in-out;
+}
+
+.btn-cncl:hover {
+    transform: scale(1.08);
+}
+
+
+
+
+.selected {
+    transform: scale(1.1); /* Mantém a imagem levemente ampliada */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8); /* Adiciona uma sombra para destacar */
+}
+
+.fundo-cor-cinza::placeholder{
+    background-color: #333;
+}
+
+
+.logo-maker {
+    font-size: 2rem;
+    margin-left: 6px;
+    color: #fff;
+}
+
+#logo_tm {
+    height: 50px;
+    width: 50px;
+    margin-right: 6px;
+}
+
+#logo_tm img {
+    height: 100%;
+    width: 100%;
+}
+
+.profile-icon {
+    color: #d1d1d1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+}
+
+.profile-icon i {
+    font-size: 2rem;
+    z-index: 999;
+}
+
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+
+#close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+#close-btn:hover {
+    color: #ccc;
+}
+
+.card-criado{
+    height: 208px;
+    cursor: pointer;
+}
+
+.sec-color{
+    height: 52px;
+    width: 100%;
+    filter: blur(52);
+}
+
+#card-section {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#generateCardBtn,
+#deleteCardBtn,
+#returnPageBtn {
+    border-radius: 20px;
+}
+
+.btn-frt-crt{
+    background-color: #E3CDFE;
+    border-radius: 30px;
+    border: none;
+    outline: 2px solid white;
+    width: 14vw;
+    height: 6vh;
+    color: #202020;
+    font-size: 1.2rem;
+    cursor: pointer;
+    outline-offset: 3px;
+}
+
+.ainda-p {
+    overflow: hidden;
+    font-size: 2rem;
+    font-weight: 300;
+    line-height: 1.2;
+    color: white;
+    margin: 10% 0%; 
+}
+
+.ainda-p span {
+    display: inline-block;
+    animation: reveal 1.5s cubic-bezier(0.77, 0, 0.175, 1) 0.5s;
+    animation-fill-mode: backwards;
+}
+
+@keyframes reveal {
+0% {
+    transform: translate(0, 100%);
+    }
+    100% {
+    transform: translate(0, 0);
+    }
+}

@@ -2,7 +2,7 @@ import React from "react";
 import './Login.css';
 import { Link } from "react-router-dom";
 import backgroundImage from '../../assets/imagens/BackgroundGradientLogin.gif';
-import LogoTestMaker from '../../assets/imagens/logo_teste_maker.png';
+import LogoTestMaker from '../../assets/imagens/logOtesteMaker.png';
 import { ErrorMessage, Field, Formik } from "formik";
 import * as yup from 'yup';
 import Axios from "axios";
@@ -10,7 +10,7 @@ import Axios from "axios";
 const Login = () => {
 
     const handleClickLogin = (values) => {
-        Axios.post("http://localhost:3000/users/login", {
+        Axios.post("http://localhost:3000/auth/login", {
             email: values.email, 
             password: values.password,
         }).then((response) => {

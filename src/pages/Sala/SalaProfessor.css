@@ -1,0 +1,115 @@
+
+.professor-sala-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f4f4f4;  
+}
+
+
+.professor-sala-content {
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.professor-sala-sidebar {
+  width: 20%;
+  height: 100%;
+  background-color: #2d2d2d;
+  color: white;
+}
+
+.alunos-lista-t {
+  font-size: 1.2rem;
+  margin: 15px;
+}
+
+.professor-sala-alunos-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.professor-sala-aluno {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.professor-sala-aluno:hover {
+  background-color: #a685b0;
+}
+
+.professor-sala-aluno-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.professor-sala-aluno-name {
+  color: white;
+  font-size: 1rem;
+}
+
+
+.professor-sala-provas-content {
+  width: 80%;
+  padding: 20px;
+  background-color: rgb(75, 75, 75);
+}
+
+.professor-sala-provas-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.avlc-text{
+  color: #ffffff;
+}
+
+.professor-sala-prova-card {
+  margin-bottom: 20px;
+}
+
+.card-prova-cria{
+    background-color: #242424;
+    border: 1px solid #282828;
+    width: 40vw;
+    border-radius: 5px;
+}
+
+.professor-sala-prova-card .card-title {
+  font-size: 1.25rem;
+}
+
+.professor-sala-prova-card .card-text {
+  font-size: 1rem;
+}
+
+.professor-sala-context-menu {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.professor-sala-context-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.professor-sala-context-menu li {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.professor-sala-context-menu li:hover {
+  background-color: #f0f0f0;
+}

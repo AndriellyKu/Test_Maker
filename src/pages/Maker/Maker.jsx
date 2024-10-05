@@ -1,14 +1,21 @@
 import { Formik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import './Maker.css';
 import Axios from "axios";
+import LogoimgTM from '../../assets/imagens/logOtesteMaker.png';
+import DropIcon from '../../assets/imagens/drop_down_file_icon.png';
 
 const Maker = () => {
+  const [questionCount, setQuestionCount] = useState(0);
+
+  const increaseCount = () => setQuestionCount(questionCount + 1);
+  const decreaseCount = () => setQuestionCount(Math.max(questionCount - 1, 0));
+
   return (
-    <div>
+    <div className="super-all-container">
       <div className="container_branding">
         <div id="logo_tm">
-          <img src="../imagens/logo_teste_maker.png" alt="Logo Test maker" />
+          <img src={LogoimgTM} alt="Logo Test maker" />
         </div>
         <h1>Test Maker</h1>
       </div>
@@ -20,7 +27,7 @@ const Maker = () => {
           </p>
         </div>
 
-        <hr />
+        <hr className="corte-esctreito" />
 
         <div id="container_upload_select">
           <div className="container_file_upload">
@@ -71,7 +78,7 @@ const Maker = () => {
                     value="short-answer"
                   />
                   <span className="checkbox-custom"></span>
-                  <label for="checkbox1">Resposta curta</label>
+                  <label for="checkbox2">Resposta curta</label>
                 </div>
                 <div className="checkbox-container">
                   <input
@@ -82,23 +89,11 @@ const Maker = () => {
                     value="paragraph"
                   />
                   <span className="checkbox-custom"></span>
-                  <label for="checkbox1">Parágrafo</label>
+                  <label for="checkbox3">Parágrafo</label>
                 </div>
               </div>
 
               <div className="container_sep1">
-                <div className="checkbox-container">
-                  <input
-                    type="checkbox"
-                    className="checkbox1"
-                    id="checkbox03"
-                    name="question-type"
-                    value="checkbox"
-                  />
-                  <span className="checkbox-custom"></span>
-                  <label for="checkbox1">Caixa de seleção</label>
-                </div>
-
                 <div className="checkbox-container">
                   <input
                     type="checkbox"
@@ -108,7 +103,19 @@ const Maker = () => {
                     value="checkbox"
                   />
                   <span className="checkbox-custom"></span>
-                  <label for="checkbox1">Caixa de seleção</label>
+                  <label for="checkbox4">Caixa de seleção</label>
+                </div>
+
+                <div className="checkbox-container">
+                  <input
+                    type="checkbox"
+                    className="checkbox1"
+                    id="checkbox05"
+                    name="question-type"
+                    value="checkbox"
+                  />
+                  <span className="checkbox-custom"></span>
+                  <label for="checkbox5">Caixa de seleção</label>
                 </div>
               </div>
             </div>
@@ -118,7 +125,7 @@ const Maker = () => {
         <div id="Container_drop">
           <div className="container_drop_img">
             <img
-              src="../imagens/drop_down_file_icon.png"
+              src={DropIcon}
               alt="selecione e coloque aqui o arquivo"
             />
           </div>
@@ -140,13 +147,13 @@ const Maker = () => {
           <div className="quantity_questions">
             <p>N° de questões</p>
             <div className="menos_mais">
-              <button id="mais" type="button">
+              <button id="mais" type="button" onClick={increaseCount}>
                 +
               </button>
               <div className="container_contagem">
-                <p id="contagem">0</p>
+                <p id="contagem">{questionCount}</p>
               </div>
-              <button id="menos" type="button">
+              <button id="menos" type="button" onClick={decreaseCount}>
                 -
               </button>
             </div>
