@@ -6,7 +6,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as yup from 'yup';
 import axios from "axios";
 
-// Validação com Yup
+
 const ValidationCadastro = yup.object().shape({
     email: yup.string().email('Email inválido').required('Email é obrigatório'),
     password: yup.string().min(8, 'Senha deve ter no mínimo 8 caracteres').required('Senha é obrigatória'),
@@ -19,7 +19,7 @@ const Cadastro = () => {
   const [previewImage, setPreviewImage] = useState(null);
   const navigate = useNavigate(); 
 
-  // Função para lidar com o envio do formulário
+
   const handleClickCadastro = async (values) => {
     const formData = new FormData();
     formData.append('profilePicture', values.profilePicture); 
@@ -36,7 +36,7 @@ const Cadastro = () => {
             }
         });
         console.log('Cadastro realizado com sucesso', response.data);
-        navigate("/login"); // Redireciona para a página de login após cadastro bem-sucedido
+        navigate("/login");
     } catch (error) {
         console.error('Erro ao se conectar com o backend:', error);
     }
@@ -67,7 +67,7 @@ const Cadastro = () => {
             profilePicture: null
           }}
           validationSchema={ValidationCadastro}
-          onSubmit={handleClickCadastro} // Aqui passa os valores para a função de cadastro
+          onSubmit={handleClickCadastro} 
         >
           {({ setFieldValue, values }) => (
             <Form className="CadastroForm" encType="multipart/form-data">
@@ -105,7 +105,7 @@ const Cadastro = () => {
                     type="file"
                     accept="image/*"
                     name="profilePicture"
-                    onChange={(event) => handleImageChange(event, setFieldValue)}  // Função para pré-visualizar a imagem
+                    onChange={(event) => handleImageChange(event, setFieldValue)} 
                   />
                   {previewImage && <img src={previewImage} alt="Prévia da Imagem" style={{ maxHeight: '100px' }} />}
                 </div>

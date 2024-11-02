@@ -4,9 +4,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './pages/Login/Login.jsx';
 import Cadastro from './pages/Cadastro/Cadastro.jsx';
 import AlunoHome from './pages/Home/AlunoHome.jsx';
-import ProfessorHome from './pages/Home/ProfessorHome.jsx'; // Importando ProfessorHome
+import ProfessorHome from './pages/Home/ProfessorHome.jsx'; 
 import Maker from './pages/Maker/Maker.jsx';
 import SalaProfessor from './pages/Sala/SalaProfessor.jsx';
+import Resultadosprovamaker from './pages/Resultadosprovamaker/Resultadosprovamaker.jsx'
 
 const router = createBrowserRouter([
   {
@@ -18,8 +19,8 @@ const router = createBrowserRouter([
     element: <Cadastro/>
   },
   {
-    path: "/alunoHome", // Caminho pra pagina que aparece no navegador
-    element: <AlunoHome/> // O nome do componente real
+    path: "/alunoHome",
+    element: <AlunoHome/> 
   },
   {
     path: "/professorHome",
@@ -34,7 +35,8 @@ const router = createBrowserRouter([
     element: <SalaProfessor/>
   },
   {
-
+    path:"/resultadosprovamaker",
+    element:<Resultadosprovamaker/>
   }
 ]);
 

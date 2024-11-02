@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './AlunoHome.css'; // Seu arquivo CSS
+import './AlunoHome.css';
 import "bootstrap-icons/font/bootstrap-icons.min.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LogoimgTM from '../../assets/imagens/logOtesteMaker.png';
@@ -10,17 +10,17 @@ const AlunoHome = () => {
   const [cards, setCards] = useState([]);
   const [showLoader, setShowLoader] = useState(false);
 
-  // Função para adicionar card
+
   const addCard = () => {
     setCards([...cards, { id: cards.length, name: "Novo Card" }]);
   };
 
-  // Função para deletar o último card
+
   const deleteCard = () => {
     setCards(cards.slice(0, -1));
   };
 
-  // Função para alternar entre criar prova e fechar
+r
   const toggleCreateForm = () => {
     setShowCreateForm(!showCreateForm);
   };
@@ -39,7 +39,6 @@ const AlunoHome = () => {
         </div>
       </header>
 
-      {/* Seção central para criar card */}
       <div className="container d-flex justify-content-center align-items-center min-vh-100">
         {!showCreateForm ? (
           <div id="create-card" className="card text-center" onClick={toggleCreateForm}>
@@ -68,7 +67,6 @@ const AlunoHome = () => {
         </div>
       )}
 
-      {/* Seção de Cards */}
       <div id="card-section" className="container d-flex flex-column align-items-center mt-4">
         <div className="mb-3">
           <button id="generateCardBtn" className="btn btn-success" onClick={addCard}>
@@ -91,7 +89,6 @@ const AlunoHome = () => {
         </div>
       </div>
 
-      {/* Perguntas */}
       <div id="containerPerguntas" className="container mt-4"></div>
     </div>
   );

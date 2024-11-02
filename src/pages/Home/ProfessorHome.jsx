@@ -13,6 +13,7 @@ import background3 from '../../assets/imagens/bg3.webp';
 import background4 from '../../assets/imagens/bg4.avif';
 import background5 from '../../assets/imagens/bg5.avif';
 import background6 from '../../assets/imagens/bg6.avif';
+import HeaderH from "../../components/headerH";
 
 const ProfessorHome = () => {
   const [turmas, setTurmas] = useState([]); 
@@ -43,24 +44,7 @@ const ProfessorHome = () => {
 
   return (
     <div className="all-all-container">
-      <header className="d-flex justify-content-between align-items-center p-3">
-        <div className="container_branding d-flex align-items-center">
-          <div id="logo_tm">
-            <img src={LogoimgTM} alt="Logo Test Maker" className="img-fluid" />
-          </div>
-          <h1 className="logo-maker">Test Maker</h1>
-        </div>
-        <div className="profile-icon">
-          {profilePic && (
-            <img
-              src={profilePic}
-              alt="Foto do Professor"
-              className="rounded-circle"
-              style={{ width: '50px', height: '50px', objectFit: 'cover', }}
-            />
-          )}
-        </div>
-      </header>
+      <HeaderH />
 
 
       <div className="container d-flex flex-column align-items-center min-vh-100">
