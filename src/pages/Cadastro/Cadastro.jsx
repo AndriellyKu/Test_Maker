@@ -22,12 +22,16 @@ const Cadastro = () => {
 
   const handleClickCadastro = async (values) => {
     const formData = new FormData();
-    formData.append('profilePicture', values.profilePicture); 
+    console.log("KRATOS DANÇA")
+    if (values.profilePicture) {
+        formData.append('profilePicture', values.profilePicture);
+    }
     formData.append('email', values.email);
     formData.append('password', values.password);
     formData.append('username', values.username);
     formData.append('userType', values.userType);
     formData.append('escola', values.escola);
+
 
     try {
         const response = await axios.post('http://localhost:3000/auth/register', formData, {
@@ -38,9 +42,11 @@ const Cadastro = () => {
         console.log('Cadastro realizado com sucesso', response.data);
         navigate("/login");
     } catch (error) {
-        console.error('Erro ao se conectar com o backend:', error);
-    }
-  };
+      console.error("Erro ao registrar o usuário:", error);
+      res.status(500).json({ message: "Erro ao registrar o usuário", details: error.message });
+  }
+};
+
 
   const handleImageChange = (event, setFieldValue) => {
     const file = event.currentTarget.files[0];

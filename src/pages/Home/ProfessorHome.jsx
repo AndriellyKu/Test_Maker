@@ -5,7 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import LogoimgTM from '../../assets/imagens/logOtesteMaker.png';
 import TextRevealCSS from '../../components/TextRevealCSS';
 import { Formik, Form, Field } from 'formik';
-
+import HeaderH from "../../components/HeaderH";
+const API_URL = import.meta.env.VITE_API_URL;
 
 import background1 from '../../assets/imagens/bg1.webp';
 import background2 from '../../assets/imagens/bg2.jpg';
@@ -13,7 +14,6 @@ import background3 from '../../assets/imagens/bg3.webp';
 import background4 from '../../assets/imagens/bg4.avif';
 import background5 from '../../assets/imagens/bg5.avif';
 import background6 from '../../assets/imagens/bg6.avif';
-import HeaderH from "../../components/headerH";
 
 const ProfessorHome = () => {
   const [turmas, setTurmas] = useState([]); 
@@ -22,18 +22,30 @@ const ProfessorHome = () => {
   const [profilePic, setProfilePic] = useState(''); 
   const [professorName, setProfessorName] = useState(''); 
 
-
   useEffect(() => {
-    fetch('/api/professor-data')
-      .then((response) => response.json())
-      .then((data) => {
-        setProfessorName(data.name); 
+    const fetchProfessorData = async () => {
+      try {
+        const response = await fetch(`${API_URL}/users/professor-data`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`Erro ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
         setProfilePic(data.profilePic);
-      })
-      .catch((error) => console.error('Erro ao buscar dados do professor:', error));
+        setProfessorName(data.name);
+      } catch (error) {
+        console.error('Erro ao buscar dados do professor:', error);
+      }
+    };
+
+    fetchProfessorData();
   }, []);
-
-
+  
   const toggleCreateForm = () => {
     setShowCreateForm(!showCreateForm);
   };
@@ -44,9 +56,7 @@ const ProfessorHome = () => {
 
   return (
     <div className="all-all-container">
-      <HeaderH />
-
-
+      <HeaderH/>
       <div className="container d-flex flex-column align-items-center min-vh-100">
         {!showCreateForm && turmas.length === 0 ? (
           <div className="text-center mt-5">
@@ -72,7 +82,7 @@ const ProfessorHome = () => {
                       <Field
                         type="text"
                         name="name"
-                        className="fundo-cor-cinza "
+                        className="fundo-cor-cinza"
                         placeholder="Nome da Sala"
                       />
                       <Field
@@ -103,7 +113,6 @@ const ProfessorHome = () => {
                 </Formik>
               </div>
             )}
-
             {turmas.length > 0 && (
               <div className="container mt-4">
                 <h2 className="text-center mb-4">Suas Turmas</h2>
@@ -129,14 +138,9 @@ const ProfessorHome = () => {
                       </div>
                     </div>
                   ))}
-
-
                   <div className="col-md-3">
-                    <div className="card criar-nova-turma-card" onClick={toggleCreateForm}>
-                      <div className="card-body d-flex flex-column justify-content-center align-items-center">
-                        <i className="bi bi-plus-lg display-1"></i> 
-                        <h5 className="card-title mt-3">Criar Nova Turma</h5> 
-                      </div>
+                    <div className="card d-flex justify-content-center align-items-center" onClick={toggleCreateForm}>
+                      <i className="bi bi-plus-lg display-1 text-white"></i>
                     </div>
                   </div>
                 </div>
@@ -145,14 +149,6 @@ const ProfessorHome = () => {
           </>
         )}
       </div>
-
-      {showLoader && (
-        <div id="loader" className="d-flex justify-content-center">
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

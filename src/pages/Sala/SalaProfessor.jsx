@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import './SalaProfessor.css';
 import "bootstrap-icons/font/bootstrap-icons.min.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import HeaderH from "../../components/headerH";
+import HeaderH from "../../components/HeaderH";
 
 const SalaProfessor = () => {
   const location = useLocation();

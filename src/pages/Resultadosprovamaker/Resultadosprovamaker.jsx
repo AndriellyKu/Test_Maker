@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import './Resultadosprovamaker.css';
-import HeaderH from "../../components/headerH";
+import HeaderH from "../../components/HeaderH";
 
 const Resultadosprovamaker = () => {
   const location = useLocation();

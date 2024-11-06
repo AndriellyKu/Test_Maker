@@ -1,30 +1,48 @@
 import React from "react";
 import './Login.css';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import backgroundImage from '../../assets/imagens/BackgroundGradientLogin.gif';
 import LogoTestMaker from '../../assets/imagens/logOtesteMaker.png';
 import { ErrorMessage, Field, Formik } from "formik";
 import * as yup from 'yup';
 import Axios from "axios";
 
+// A variável de ambiente deve ser acessada corretamente
+const API_URL = import.meta.env.VITE_API_URL;
+
 const Login = () => {
+    const navigate = useNavigate();
 
-    const handleClickLogin = (values) => {
-        Axios.post("http://localhost:3000/auth/login", {
-            email: values.email, 
-            password: values.password,
-        }).then((response) => {
-            console.log('Login realizado com sucesso!');
-            console.log(response.data); 
-            
-            if (response.data.token) {
-                console.log('Token JWT:', response.data.token);
+    const handleClickLogin = async (values) => {
+        try {
+            const response = await Axios.post(`${API_URL}/auth/login`, {
+                email: values.email,
+                password: values.password,
+            });
+            // Verifique se a resposta é JSON antes de continuar
+            if (response.headers['content-type'].includes('application/json')) {
+                // Continue com o processamento normal
+                if (response.data.token) {
+                    localStorage.setItem('token', response.data.token);
+                    redirectToHome(response.data.userType);
+                }
+            } else {
+                console.error("Resposta não é JSON válida", response);
             }
-        }).catch((error) => {
+        } catch (error) {
             console.error('Erro ao realizar login:', error.response?.data || error.message);
-        });
-    }
+            alert("Erro ao realizar login: Verifique suas credenciais.");
+        }
+    };
+    
 
+    const redirectToHome = (userType) => {
+        if (userType === 'professor') {
+            navigate('/professorhome');
+        } else if (userType === 'aluno') {
+            navigate('/alunohome');
+        }
+    };
 
     const ValidationLogin = yup.object().shape({
         email: yup.string().email('Email inválido').required('Email é obrigatório'),
