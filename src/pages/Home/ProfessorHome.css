@@ -211,10 +211,27 @@
     color: #ccc;
 }
 
-.card-criado{
+.card-criado {
     height: 208px;
     cursor: pointer;
+    position: relative;
 }
+
+.delete-icon {
+    color: red;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.2rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.card-criado:hover .delete-icon {
+    opacity: 1;
+}
+
 
 .sec-color{
     height: 52px;

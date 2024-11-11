@@ -10,7 +10,7 @@ const TextRevealCSS = ({ text = '', className = '' }) => {
         <span
           key={`${char}-${index}`}
           style={{ animationDelay: `${index * 0.05}s` }}
-          className="text-reveal-char" // Adiciona uma classe para customização
+          className="text-reveal-char" 
         >
           {char === " " ? "\u00A0" : char}
         </span>
