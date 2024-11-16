@@ -8,6 +8,7 @@ import ProfessorHome from './pages/Home/ProfessorHome.jsx';
 import Maker from './pages/Maker/Maker.jsx';
 import SalaProfessor from './pages/Sala/SalaProfessor.jsx';
 import Resultadosprovamaker from './pages/Resultadosprovamaker/Resultadosprovamaker.jsx'
+import SalaAluno from './pages/Sala/SalaAluno.jsx';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
   {
     path:"/resultadosprovamaker",
     element:<Resultadosprovamaker/>
+  },
+  {
+    path:"/salaaluno",
+    element:<SalaAluno/>
   }
 ]);
 

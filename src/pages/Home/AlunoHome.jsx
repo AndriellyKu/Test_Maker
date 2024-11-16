@@ -1,95 +1,174 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './AlunoHome.css';
 import "bootstrap-icons/font/bootstrap-icons.min.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LogoimgTM from '../../assets/imagens/logOtesteMaker.png';
+import HeaderH from "../../components/HeaderH";
 
+const API_URL = import.meta.env.VITE_API_URL;
 
 const AlunoHome = () => {
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [cards, setCards] = useState([]);
   const [showLoader, setShowLoader] = useState(false);
+  const [classCode, setClassCode] = useState("");
 
+  useEffect(() => {
+    // Função para buscar as turmas do aluno ao montar o componente
+    const fetchTurmas = async () => {
+      setShowLoader(true);
+      try {
+        const response = await fetch(`${API_URL}/alunos/listar-turmas`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+          setCards(data.turmas); // Atualiza o estado com as turmas recebidas
+        } else {
+          console.error("Erro ao buscar turmas:", data.message);
+          alert(data.message || "Erro ao carregar as turmas.");
+        }
+      } catch (error) {
+        console.error("Erro de conexão ao buscar turmas:", error);
+        alert("Erro de conexão. Tente novamente mais tarde.");
+      } finally {
+        setShowLoader(false);
+      }
+    };
 
-  const addCard = () => {
-    setCards([...cards, { id: cards.length, name: "Novo Card" }]);
+    fetchTurmas(); // Chama a função ao montar o componente
+  }, []);
+
+  const addCard = (newClass) => {
+    setCards([...cards, newClass]);
   };
 
-
-  const deleteCard = () => {
-    setCards(cards.slice(0, -1));
-  };
-
-r
   const toggleCreateForm = () => {
     setShowCreateForm(!showCreateForm);
   };
 
-  return (
-    <div className="all-all-container">
-      <header className="d-flex justify-content-between align-items-center p-3">
-        <div className="container_branding d-flex align-items-center">
-          <div id="logo_tm">
-            <img src={LogoimgTM} alt="Logo Test maker" />
-          </div>
-          <h1 className="logo-maker">Test Maker</h1>
-        </div>
-        <div className="profile-icon">
-          <i className="bi bi-person-circle"></i>
-        </div>
-      </header>
+  const handleJoinClass = async () => {
+    if (!classCode.trim()) {
+      alert("Por favor, insira o código da turma.");
+      return;
+    }
+  
+    setShowLoader(true);
+  
+    try {
+      const response = await fetch(`${API_URL}/alunos/entrar-na-turma`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ codigo: classCode })
+      });
+  
+      const data = await response.json();
+      
+      if (response.ok) {
+        // Verifique se a turma já está na lista de `cards`
+        const turmaExists = cards.some(card => card.id === data.turma._id);
+        if (turmaExists) {
+          alert("Você já está nessa turma.");
+        } else {
+          // Adiciona a nova turma ao estado local
+          addCard({
+            id: data.turma._id, 
+            name: data.turma.nome, 
+            turma: data.turma.turma, 
+            professor: data.turma.professorNome 
+          });
+          alert(data.message);
+        }
+      } else {
+        alert(data.message || 'Erro ao entrar na turma');
+      }
+    } catch (error) {
+      console.error("Erro ao entrar na turma:", error);
+      alert("Erro de conexão. Tente novamente mais tarde.");
+    } finally {
+      setShowLoader(false);
+      setShowCreateForm(false);
+      setClassCode(""); 
+    }
+  };
+  
 
-      <div className="container d-flex justify-content-center align-items-center min-vh-100">
+  return (
+    <div className="aluno-home-container">
+      <HeaderH />
+
+      <div className="create-class-container d-flex justify-content-center align-items-center min-vh-100">
         {!showCreateForm ? (
-          <div id="create-card" className="card text-center" onClick={toggleCreateForm}>
-            <div className="card-body">
+          <div id="create-class-card" className="create-card animate__animated animate__fadeIn" onClick={toggleCreateForm}>
+            <div className="create-card-body">
               <i className="bi bi-plus-circle-fill display-1"></i>
-              <p className="mt-3">Clique para criar sua prova</p>
+              <p className="mt-3">Clique para entrar em uma nova turma</p>
             </div>
           </div>
         ) : (
-          <div id="create-form" className="card text-center">
-            <div className="card-body">
+          <div id="join-class-form" className="join-class-card animate__animated animate__zoomIn">
+            <div className="join-card-body">
               <button id="close-btn" className="btn-close" onClick={toggleCreateForm}></button>
-              <input type="text" id="exam-name" className="form-control mb-3" placeholder="Nome da Prova" />
-              <textarea id="exam-description" className="form-control mb-3" placeholder="Descrição da Prova"></textarea>
-              <button id="advance-btn" className="btn btn-primary">Avançar</button>
+              <input 
+                type="text" 
+                id="class-code" 
+                className="form-control mb-3" 
+                placeholder="Código da Turma" 
+                value={classCode} 
+                onChange={(e) => setClassCode(e.target.value)} 
+              />
+              <button 
+                id="enter-class-btn" 
+                className="btn btn-primary" 
+                onClick={handleJoinClass}
+              >
+                Entrar
+              </button>
             </div>
           </div>
         )}
       </div>
       
       {showLoader && (
-        <div id="loader" className="d-flex justify-content-center">
+        <div id="loader" className="d-flex justify-content-center loader-animation">
           <div className="spinner-border" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
         </div>
       )}
 
-      <div id="card-section" className="container d-flex flex-column align-items-center mt-4">
-        <div className="mb-3">
-          <button id="generateCardBtn" className="btn btn-success" onClick={addCard}>
-            Gerar Card
-          </button>
-          <button id="deleteCardBtn" className="btn btn-danger ms-2" onClick={deleteCard}>
-            Deletar Card
-          </button>
-          <button id="returnPageBtn" className="btn btn-secondary ms-2">Voltar</button>
-        </div>
-        <div id="cardContainer" className="row g-4">
+      <div id="class-cards-section" className="container d-flex flex-column align-items-center mt-4">
+        <div id="classCardsContainer" className="row g-4">
           {cards.map((card) => (
-            <div key={card.id} className="card col-md-3">
-              <div className="card-body">
+            <div 
+              key={card.id} 
+              className="created-class-card col-md-3 animate__animated animate__fadeIn" 
+              onClick={() => alert(`Entrando na turma: ${card.name}`)}
+            >
+              <div className="created-card-body">
+                <i
+                  className="bi bi-trash delete-icon"
+                  onClick={(e) => { 
+                    e.stopPropagation(); 
+                    setCards(cards.filter(c => c.id !== card.id));
+                  }}
+                ></i>
                 <h5 className="card-title">{card.name}</h5>
-                <p className="card-text">Detalhes da prova aqui</p>
+                <p className="card-text">{card.turma}</p>
+                <p className="card-text">{card.professor}</p>
               </div>
             </div>
           ))}
         </div>
       </div>
-
-      <div id="containerPerguntas" className="container mt-4"></div>
     </div>
   );
 };

@@ -37,7 +37,7 @@ const HeaderH = () => {
   }, []);
 
   return (
-    <header className="d-flex justify-content-between align-items-center p-3">
+    <header className="d-flex justify-content-between align-items-center p-3" style={{ backgroundColor: '#333' }}>
       <div className="container_branding d-flex align-items-center">
         <div id="logo_tm">
           <img src={LogoimgTM} alt="Logo Test Maker" className="img-fluid" />

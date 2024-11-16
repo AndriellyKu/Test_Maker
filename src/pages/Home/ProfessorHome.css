@@ -4,14 +4,6 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.Hehader {
-    background-color: #333;
-}
-
-.logo {
-    height: 50px;
-}
-
 .card {
     background-color: #202020;
     border: 2px solid #E3CDFE;
@@ -218,7 +210,6 @@
 }
 
 .delete-icon {
-    color: red;
     position: absolute;
     top: 10px;
     right: 10px;
@@ -226,12 +217,12 @@
     opacity: 0;
     transition: opacity 0.3s ease;
     cursor: pointer;
-}
-
-.card-criado:hover .delete-icon {
+  }
+  
+  .card-criado:hover .delete-icon {
     opacity: 1;
-}
-
+  }
+  
 
 .sec-color{
     height: 52px;

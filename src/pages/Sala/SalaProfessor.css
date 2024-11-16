@@ -1,11 +1,9 @@
-
 .professor-sala-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
   background-color: #f4f4f4;  
 }
-
 
 .professor-sala-content {
   display: flex;
@@ -40,7 +38,7 @@
 }
 
 .professor-sala-aluno:hover {
-  background-color: #a685b0;
+  background-color: #be81d1;
 }
 
 .professor-sala-aluno-img {
@@ -55,31 +53,36 @@
   font-size: 1rem;
 }
 
-
 .professor-sala-provas-content {
   width: 80%;
   padding: 20px;
-  background-color: rgb(75, 75, 75);
+  background-color: #262626;
 }
 
-.professor-sala-provas-content h3 {
-  font-size: 1.5rem;
+.provas-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.avlc-text {
+  color: #fff;
+  margin-top: 40px;
   margin-bottom: 20px;
-}
-
-.avlc-text{
-  color: #ffffff;
 }
 
 .professor-sala-prova-card {
+  flex: 1 1 calc(33.333% - 20px); /* Colocar três colunas no layout */
   margin-bottom: 20px;
+
 }
 
-.card-prova-cria{
-    background-color: #242424;
-    border: 1px solid #282828;
-    width: 40vw;
-    border-radius: 5px;
+.card-prova-cria {
+  background-color: #202020;
+  color: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .professor-sala-prova-card .card-title {
@@ -90,26 +93,187 @@
   font-size: 1rem;
 }
 
-.professor-sala-context-menu {
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+.codigo-e-media {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-.professor-sala-context-menu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.professor-sala-context-menu li {
-  padding: 8px 12px;
+.show-codigo-btn,
+.show-media-btn {
+  width: 50%;
+  display: inline-block;
+  padding: 15px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #242424;
+  border: 2px solid #d9baff;
+  border-radius: 25px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: 0.3s;
+  animation: glowing 1.5s infinite;
 }
 
-.professor-sala-context-menu li:hover {
-  background-color: #f0f0f0;
+.show-codigo-btn:hover, .show-media-btn:hover {
+  background-color: #d9baff;
+  color: #2d2d2d;
+}
+
+@keyframes glowing {
+  0% { box-shadow: 0 0 5px #d9baff; }
+  50% { box-shadow: 0 0 20px #d9baff, 0 0 30px #241035; }
+  100% { box-shadow: 0 0 5px #d9baff; }
+}
+
+.codigo-sala, .media-geral {
+  font-size: 1.5rem;
+  color: #fff;
+  padding: 20px;
+  background-color: #333;
+  border-radius: 15px;
+  margin-top: 15px;
+  border: 2px solid #a685b0;
+  width: 100%;
+  text-align: center;
+}
+
+.criar-prova-btn {
+  display: block;
+  margin: 30px auto 0;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  color: #fff;
+  background-color: #242424;
+  border: 2px solid #d9baff;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  animation: glowing 1.5s infinite;
+}
+
+.criar-prova-btn:hover {
+  background-color: #d9baff;
+  color: #2d2d2d;
+}
+
+/* Animação de brilho para os botões */
+@keyframes glowing {
+  0% { box-shadow: 0 0 5px #d9baff; }
+  50% { box-shadow: 0 0 20px #d9baff, 0 0 30px #241035; }
+  100% { box-shadow: 0 0 5px #d9baff; }
+}
+
+/* Estilização dos botões com animação */
+.show-codigo-btn, .show-media-btn, .criar-prova-btn {
+  display: inline-block;
+  padding: 15px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #242424;
+  border: 2px solid #d9baff;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  animation: glowing 1.5s infinite;
+}
+
+.show-codigo-btn:hover, .show-media-btn:hover, .criar-prova-btn:hover {
+  background-color: #d9baff;
+  color: #2d2d2d;
+}
+
+/* Animação de fade-in para o código da sala e média geral */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.codigo-sala, .media-geral {
+  font-size: 1.5rem;
+  color: #fff;
+  padding: 20px;
+  background-color: #333;
+  border-radius: 15px;
+  margin-top: 15px;
+  border: 2px solid #a685b0;
+  width: 100%;
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+
+/* Estilo para o formulário de criação de prova */
+.form-criar-prova {
+  position: fixed; /* Faz o formulário ser posicionado fixo na tela */
+  top: 50%; /* Posiciona o topo no meio da tela */
+  left: 50%; /* Posiciona a esquerda no meio da tela */
+  transform: translate(-50%, -50%); /* Ajusta o posicionamento para que o formulário fique centrado */
+  background-color: rgb(44, 44, 44);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 999; /* Garante que o formulário fique sobre outros elementos */
+  width: 400px; /* Define uma largura fixa para o formulário */
+  max-width: 90%; /* Garante que o formulário não ultrapasse a largura da tela */
+}
+
+/* Estilo para animação de fade */
+.form-criar-prova.aparece {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.form-criar-prova.desaparece {
+  animation: fadeOut 0.3s ease-in;
+}
+
+/* Animações */
+@keyframes aparece {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes desaparece {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.cor-fundo-menu-sala{
+  background-color: #333;
+}
+
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
