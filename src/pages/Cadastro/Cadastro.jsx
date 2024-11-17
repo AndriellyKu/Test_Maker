@@ -22,7 +22,6 @@ const Cadastro = () => {
 
   const handleClickCadastro = async (values) => {
     const formData = new FormData();
-    console.log("KRATOS DANÇA")
     if (values.profilePicture) {
         formData.append('profilePicture', values.profilePicture);
     }
