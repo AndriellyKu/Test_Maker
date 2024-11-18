@@ -12,7 +12,7 @@ import SalaAluno from './pages/Sala/SalaAluno.jsx';
 
 const router = createBrowserRouter([
   {
-    path: "/login",
+    path: "/",
     element: <Login/>
   },
   {
