@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import LogoimgTM from '../../assets/imagens/logOtesteMaker.png';
 import TextRevealCSS from '../../components/TextRevealCSS';
 import { Formik, Form, Field } from 'formik';
-import HeaderH from "../../components/HeaderH";
+import Cabecalio from "../../components/Cabecalio";
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -86,7 +86,7 @@ const ProfessorHome = () => {
 
   return (
     <div className="all-all-container">
-      <HeaderH />
+      <Cabecalio />
       <div className="container d-flex flex-column align-items-center min-vh-100">
         {!showCreateForm && turmas.length === 0 ? (
           <div className="text-center mt-5">

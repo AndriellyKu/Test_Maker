@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./SalaProfessor.css";
-import HeaderH from "../../components/HeaderH";
+import Cabecalio from "../../components/Cabecalio";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -122,7 +122,7 @@ const SalaProfessor = () => {
 
   return (
     <div className="professor-sala-container">
-      <HeaderH />
+      <Cabecalio />
       <div className="professor-sala-content d-flex">
         <div className="professor-sala-sidebar">
           <p className="alunos-lista-t">Alunos</p>

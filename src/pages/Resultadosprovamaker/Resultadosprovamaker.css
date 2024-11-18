@@ -57,3 +57,43 @@ body {
 .salvar-alteracoes:hover {
     background-color: #8d35aa; 
 }
+
+
+.resultados-prova {
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  .pergunta-text {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+  }
+  
+  .pergunta-multiple-choice .opcoes-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .opcao-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .resposta-paragraph,
+  .resposta-short-answer {
+    width: 100%;
+    margin-top: 10px;
+    padding: 8px;
+  }
+  
+  .pergunta-paragraph .resposta-paragraph {
+    height: 100px;
+  }
+  
+  .pergunta-short-answer .resposta-short-answer {
+    height: 40px;
+  }
+  

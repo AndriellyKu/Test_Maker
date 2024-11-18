@@ -3,7 +3,7 @@ import './AlunoHome.css';
 import "bootstrap-icons/font/bootstrap-icons.min.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LogoimgTM from '../../assets/imagens/logOtesteMaker.png';
-import HeaderH from "../../components/HeaderH";
+import Cabecalio from "../../components/Cabecalio";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -103,7 +103,7 @@ const AlunoHome = () => {
 
   return (
     <div className="aluno-home-container">
-      <HeaderH />
+      <Cabecalio />
 
       <div className="create-class-container d-flex justify-content-center align-items-center min-vh-100">
         {!showCreateForm ? (

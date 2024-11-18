@@ -33,7 +33,7 @@ const Cadastro = () => {
 
 
     try {
-        const response = await axios.post('http://localhost:3000/auth/register', formData, {
+        const response = await axios.post('${API_URL}/auth/register', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import './Resultadosprovamaker.css';
-import HeaderH from "../../components/HeaderH";
+import Cabecalio from "../../components/Cabecalio";
 
 const Resultadosprovamaker = () => {
   const location = useLocation();
   const { perguntasGeradas = [] } = location.state || {};
   const [perguntas, setPerguntas] = useState([]);
-  const [isProfessor, setIsProfessor] = useState(true); // Simulação do tipo de usuário (professor ou aluno)
+  const [isProfessor, setIsProfessor] = useState(true);
 
   useEffect(() => {
     if (perguntasGeradas.length > 0) {
       setPerguntas(perguntasGeradas.map((pergunta, i) => ({
         ...pergunta,
         valor: 0,
-        opcoes: pergunta.tipo === "opcoes" ? pergunta.opcoes : [], // Supondo que o tipo da pergunta seja "opcoes"
-        respostaCorreta: pergunta.respostaCorreta || null, // Supondo que a resposta correta seja fornecida
+        opcoes: pergunta.tipo === "multiple-choice" ? pergunta.opcoes : [],
+        respostaCorreta: pergunta.respostaCorreta || null,
       })));
     }
   }, [perguntasGeradas]);
@@ -44,52 +44,95 @@ const Resultadosprovamaker = () => {
     setPerguntas(novasPerguntas);
   };
 
+  const renderPergunta = (pergunta, index) => {
+    switch (pergunta.tipo) {
+      case "multiple-choice":
+        return (
+          <div key={index} className="pergunta-multiple-choice">
+            <textarea
+              value={pergunta.texto}
+              onChange={(e) => handleEditPergunta(index, e.target.value)}
+              className="pergunta-text"
+              placeholder="Digite a pergunta aqui"
+            />
+            <div className="opcoes-container">
+              {pergunta.opcoes.map((opcao, opcaoIndex) => (
+                <div key={opcaoIndex} className="opcao-box">
+                  <input
+                    type="text"
+                    value={opcao}
+                    onChange={(e) =>
+                      handleOpcaoChange(index, opcaoIndex, e.target.value)
+                    }
+                    className="opcao-input"
+                    placeholder={`Opção ${opcaoIndex + 1}`}
+                  />
+                  <input
+                    type="radio"
+                    name={`resposta-${index}`}
+                    checked={pergunta.respostaCorreta === opcao}
+                    onChange={() =>
+                      handleRespostaCorretaChange(index, opcao)
+                    }
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+
+      case "paragraph":
+        return (
+          <div key={index} className="pergunta-paragraph">
+            <textarea
+              value={pergunta.texto}
+              onChange={(e) => handleEditPergunta(index, e.target.value)}
+              className="pergunta-text"
+              placeholder="Digite a pergunta aqui"
+            />
+            <textarea
+              className="resposta-paragraph"
+              placeholder="Resposta do aluno"
+              readOnly={!isProfessor}
+            />
+          </div>
+        );
+
+      case "short-answer":
+        return (
+          <div key={index} className="pergunta-short-answer">
+            <textarea
+              value={pergunta.texto}
+              onChange={(e) => handleEditPergunta(index, e.target.value)}
+              className="pergunta-text"
+              placeholder="Digite a pergunta aqui"
+            />
+            <input
+              type="text"
+              className="resposta-short-answer"
+              placeholder="Resposta do aluno"
+              readOnly={!isProfessor}
+            />
+          </div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
-      <HeaderH />
+      <Cabecalio />
       <div className="resultados-prova">
         <h2>Resultados da Prova</h2>
         <div className="perguntas-container">
-          {perguntas.map((pergunta, index) => (
-            <div key={index} className="pergunta-box">
-              <textarea
-                value={pergunta.texto}
-                onChange={(e) => handleEditPergunta(index, e.target.value)}
-                className="pergunta-text"
-                placeholder="Digite a pergunta aqui"
-              />
-              <input
-                type="number"
-                min="0"
-                value={pergunta.valor}
-                onChange={(e) => handleValorChange(index, e.target.value)}
-                className="pergunta-valor"
-                placeholder="Valor"
-              />
-              {pergunta.opcoes.length > 0 && (
-                <div className="opcoes-container">
-                  {pergunta.opcoes.map((opcao, opcaoIndex) => (
-                    <div key={opcaoIndex} className="opcao-box">
-                      <input
-                        type="text"
-                        value={opcao}
-                        onChange={(e) => handleOpcaoChange(index, opcaoIndex, e.target.value)}
-                        className="opcao-input"
-                        placeholder={`Opção ${opcaoIndex + 1}`}
-                      />
-                      {isProfessor && pergunta.respostaCorreta === opcao && (
-                        <span className="resposta-correta">Resposta Correta</span>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
+          {perguntas.map((pergunta, index) => renderPergunta(pergunta, index))}
         </div>
         <button
           className="salvar-alteracoes"
-          onClick={() => alert("Função para salvar em PDF será implementada.")}>
+          onClick={() => alert("Função para salvar em PDF será implementada.")}
+        >
           Salvar Prova em PDF
         </button>
       </div>

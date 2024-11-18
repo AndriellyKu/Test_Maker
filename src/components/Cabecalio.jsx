@@ -3,7 +3,7 @@ import LogoimgTM from '../assets/imagens/logOtesteMaker.png';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const HeaderH = () => {
+const Cabecalio = () => {
   const [profilePic, setProfilePic] = useState('');
   const [username, setUsername] = useState('');
   const [error, setError] = useState(null);
@@ -75,4 +75,4 @@ const HeaderH = () => {
   );
 };
 
-export default HeaderH;
+export default Cabecalio;

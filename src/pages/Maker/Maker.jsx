@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Axios from "axios";
 import "./Maker.css";
 import DropIcon from "../../assets/imagens/drop_down_file_icon.png";
-import HeaderH from "../../components/HeaderH";
+import Cabecalio from "../../components/Cabecalio";
 import { useNavigate } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -85,8 +85,8 @@ const Maker = () => {
           examYear: formData.examYear,
           examName: formData.examName,
           prompt: formData.prompt,
-          professorId: formData.professorId, // Inclui o professorId
-          turmaId: formData.turmaId, // Inclui o turmaId
+          professorId: formData.professorId,
+          turmaId: formData.turmaId,
         };
       } else if (selectedMethod === "link") {
         payload = {
@@ -95,15 +95,14 @@ const Maker = () => {
           examYear: formData.examYear,
           examName: formData.examName,
           link: formData.link,
-          professorId: formData.professorId, // Inclui o professorId
-          turmaId: formData.turmaId, // Inclui o turmaId
+          professorId: formData.professorId,
+          turmaId: formData.turmaId,
         };
       } else if (selectedMethod === "documents") {
-        // Criando o FormData para envio de arquivos
         const formDataToSend = new FormData();
         Object.entries(formData).forEach(([key, value]) => {
           if (key === "documents") {
-            value.forEach((doc, index) => 
+            value.forEach((doc, index) =>
               formDataToSend.append(`document_${index}`, doc)
             );
           } else {
@@ -117,7 +116,6 @@ const Maker = () => {
   
         console.log("FormData a ser enviado:", formDataToSend);
   
-        // Enviando a requisição POST com FormData
         const response = await Axios.post(`${API_URL}/provas/gerar-questoes`, formDataToSend, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -127,18 +125,17 @@ const Maker = () => {
   
         setLoading(false);
         alert("Prova criada com sucesso!");
-        console.log(response.data);
+        console.log("Resposta da API:", response.data);
   
-        // Redireciona para Resultadosprovamaker com as perguntas geradas
+        // Certifique-se de que a resposta contém perguntas e respostas
         navigate("/resultadosprovamaker", {
           state: { perguntasGeradas: response.data.perguntas },
         });
-        return; // Finaliza o método `documents`
+        return;
       } else {
         throw new Error("Método de envio inválido.");
       }
   
-      // Para os métodos `prompt` e `link`, o envio é feito com JSON
       const response = await Axios.post(`${API_URL}/provas/gerar-questoes`, payload, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -147,9 +144,9 @@ const Maker = () => {
   
       setLoading(false);
       alert("Prova gerada com sucesso!");
-      console.log(response.data);
+      console.log("Resposta da API:", response.data);
   
-      // Redireciona para Resultadosprovamaker com as perguntas geradas
+      // Certifique-se de que a resposta contém perguntas e respostas
       navigate("/resultadosprovamaker", {
         state: { perguntasGeradas: response.data.perguntas },
       });
@@ -159,12 +156,13 @@ const Maker = () => {
       alert("Ocorreu um erro ao gerar a prova.");
     }
   };
+ 
   
   
 
   return (
     <div className="super-all-container">
-      <HeaderH />
+      <Cabecalio />
 
       {loading && <div className="loader">Carregando...</div>} {/* Loader */}
 
