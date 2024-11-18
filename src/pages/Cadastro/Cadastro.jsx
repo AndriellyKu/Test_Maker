@@ -6,6 +6,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as yup from 'yup';
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_API_URL;
 
 const ValidationCadastro = yup.object().shape({
     email: yup.string().email('Email inválido').required('Email é obrigatório'),
@@ -33,7 +34,7 @@ const Cadastro = () => {
 
 
     try {
-        const response = await axios.post('${API_URL}/auth/register', formData, {
+        const response = await axios.post(`${API_URL}/auth/register`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
