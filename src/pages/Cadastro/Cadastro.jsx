@@ -40,7 +40,7 @@ const Cadastro = () => {
             }
         });
         console.log('Cadastro realizado com sucesso', response.data);
-        navigate("/login");
+        navigate("/");
     } catch (error) {
       console.error("Erro ao registrar o usuário:", error);
       res.status(500).json({ message: "Erro ao registrar o usuário", details: error.message });
