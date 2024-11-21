@@ -19,6 +19,7 @@ const Login = () => {
                 email: values.email,
                 password: values.password,
             });
+            
             // Verifique se a resposta é JSON antes de continuar
             if (response.headers['content-type'].includes('application/json')) {
                 // Continue com o processamento normal
@@ -31,7 +32,7 @@ const Login = () => {
             }
         } catch (error) {
             console.error('Erro ao realizar login:', error.response?.data || error.message);
-            alert("Erro ao realizar login: Verifique suas credenciais.");
+            
         }
     };
     

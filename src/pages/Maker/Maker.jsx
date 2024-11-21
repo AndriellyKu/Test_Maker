@@ -172,12 +172,11 @@ const Maker = () => {
       console.log("Resposta da API:", response.data);
 
       navigate("/resultadosprovamaker", {
-        state: { perguntasGeradas: response.data.perguntas, prova: { _id: provaId} },
+       state: { perguntasGeradas: response.data.perguntas, prova: { _id: provaId} },
       });
     } catch (error) {
       setLoading(false);
       console.error(error);
-      alert("Ocorreu um erro ao gerar a prova.");
     }
   };
 
@@ -190,8 +189,8 @@ const Maker = () => {
       <form id="maker-form-pr" onSubmit={handleSubmit}>
         <div className="container_apr">
           <p id="Bem_vindo">
-            Bem-vindo! Você já pode começar a criar seu formulário. Comece
-            selecionando a matéria.
+            Bem-vindo! Você já pode começar a criar sua prova. Comece
+            por selecionar o tipo de questão.
           </p>
         </div>
 
@@ -200,7 +199,7 @@ const Maker = () => {
         <div id="container_upload_select">
           <div className="container_file_upload">
             <h2>Tipo de arquivo</h2>
-            <p>Selecione o tipo de arquivo e arraste o documento para a janela</p>
+            <p className="select-tipo-arq">Selecione o tipo de arquivo</p>
             <div className="file_icons">
               <div
                 className="Container_file_icons"
@@ -262,7 +261,7 @@ const Maker = () => {
                 value={formData.prompt}
                 onChange={handleInputChange}
                 placeholder="Digite o prompt para a IA..."
-                className="form-control"
+                className="form-control promptd"
               />
             </div>
           )}
@@ -292,7 +291,7 @@ const Maker = () => {
         <div className="container_info">
           <div className="Grade_question_info">
             <h3>Quantidade de perguntas</h3>
-            <div>
+            <div className="vigei">
               <button
                 type="button"
                 onClick={decreaseCount}

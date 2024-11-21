@@ -31,11 +31,10 @@ const AlunoHome = () => {
           setCards(data.turmas || []);
         } else {
           console.error("Erro ao buscar turmas:", data.message);
-          alert(data.message || "Erro ao carregar as turmas.");
         }
       } catch (error) {
         console.error("Erro de conexão ao buscar turmas:", error);
-        alert("Erro de conexão. Tente novamente mais tarde.");
+
       } finally {
         setShowLoader(false);
       }
@@ -54,7 +53,7 @@ const AlunoHome = () => {
 
   const handleJoinClass = async () => {
     if (!classCode.trim()) {
-      alert("Por favor, insira o código da turma.");
+
       return;
     }
 
@@ -75,7 +74,6 @@ const AlunoHome = () => {
       if (response.ok) {
         const turmaExists = cards.some((card) => card._id === data.turma._id);
         if (turmaExists) {
-          alert("Você já está nessa turma.");
         } else {
           addCard({
             _id: data.turma._id,
@@ -85,14 +83,12 @@ const AlunoHome = () => {
             professorPic: data.turma.professorPic, // Foto do professor
             background: data.turma.background, // Fundo da turma
           });
-          alert(data.message);
+        
         }
       } else {
-        alert(data.message || "Erro ao entrar na turma");
       }
     } catch (error) {
       console.error("Erro ao entrar na turma:", error);
-      alert("Erro de conexão. Tente novamente mais tarde.");
     } finally {
       setShowLoader(false);
       setShowCreateForm(false);
@@ -108,18 +104,22 @@ const AlunoHome = () => {
     <div className="aluno-home-container">
       <Cabecalio />
 
-      <div className="create-class-container d-flex justify-content-center align-items-center min-vh-100">
+      <div className="create-class-container d-flex justify-content-center align-items-center min-vh-50">
         {!showCreateForm ? (
           <div
             id="create-class-card"
-            className="create-card animate__animated animate__fadeIn"
+            className="create-card animate_animated animate_fadeIn"
             onClick={toggleCreateForm}
           >
+            <div className="create-card-body">
+              <i className="bi bi-plus-circle-fill display-1"></i>
+              <p className="mt-3">Clique para entrar em uma nova turma</p>
+            </div>
           </div>
         ) : (
           <div
             id="join-class-form"
-            className="join-class-card animate__animated animate__zoomIn"
+            className="join-class-card animate_animated animate_zoomIn"
           >
             <div className="join-card-body">
               <button
@@ -167,14 +167,17 @@ const AlunoHome = () => {
             cards.map((card) => (
               <div
                 key={card._id}
-                className="created-class-card col-md-3 animate__animated animate__fadeIn"
+                className="created-class-card col-12 col-md-6 col-lg-4 animate_animated animate_fadeIn"
                 onClick={() =>
                   navigate("/salaaluno", {
                     state: { turma: card },
                   })
                 }
               >
-                <div className="created-card-body">
+                <div
+                  className="created-card-body"
+                  style={{ backgroundImage: `url(${card.background})` }}
+                >
                   <i
                     className="bi bi-trash delete-icon"
                     onClick={(e) => {
@@ -182,30 +185,10 @@ const AlunoHome = () => {
                       handleDeleteClass(card._id);
                     }}
                   ></i>
-                  {card.background && (
-                    <div
-                      className="created-class-card"
-                      style={{ backgroundImage: `url(${card.background})` }}
-                    >
-                      <div className="sec-color">
-                        <h5 className="card-title">{card.name}</h5>
-                        <p className="card-text">{card.turma}</p>
-                        <p className="card-text">{card.professor}</p>
-                      </div>
-                    </div>
-                  )}
-                  <div className="d-flex justify-content-start mt-2">
-                    {card.professorPic && (
-                      <img
-                        src={card.professorPic}
-                        alt="Foto do Professor"
-                        className="rounded-circle"
-                        style={{ width: '40px', height: '40px', objectFit: 'cover' }}
-                      />
-                    )}
-                    <div className="ms-2">
-                      <p className="m-0">Professor: {card.professor}</p>
-                    </div>
+                  <div className="sec-color">
+                    <h5 className="card-title">{card.name}</h5>
+                    <p className="card-text">{card.turma}</p>
+                    <p className="card-text">{card.professor}</p>
                   </div>
                 </div>
               </div>
@@ -215,6 +198,7 @@ const AlunoHome = () => {
           )}
         </div>
       </div>
+      <div className="extensao-tamanho-borda"></div>
     </div>
   );
 };

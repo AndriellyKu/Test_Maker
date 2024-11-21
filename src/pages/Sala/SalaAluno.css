@@ -1,168 +1,22 @@
-.professor-sala-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    background-color: #242424; /* Cor de fundo escura */
-  }
-  
-  .professor-sala-content {
-    display: flex;
-    flex-grow: 1;
-    overflow: hidden;
-  }
-  
-  .professor-sala-sidebar {
-    width: 20%;
-    height: 100%;
-    background-color: #2d2d2d;
-    color: white;
-  }
-  
-  .aluno-sala-sidebar {
-    width: 15%; /* Ajuste a largura conforme necessário */
-    height: auto; /* Permite que a altura seja ajustada automaticamente */
-    min-height: 200px; /* Define uma altura mínima */
-    background-color: #2d2d2d;
-    color: white;
-    padding: 20px; /* Adiciona um pouco de padding */
-    border-radius: 10px; /* Adiciona bordas arredondadas */
-  }
-  
-  .alunos-lista-t {
-    font-size: 1.2rem;
-    margin: 15px;
-  }
-  
-  .professor-sala-alunos-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .professor-sala-aluno {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  
-  .professor-sala-aluno:hover {
-    background-color: #be81d1;
-  }
-  
-  .professor-sala-aluno-img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
-  
-  .professor-sala-aluno-name {
-    color: white;
+.prova-botao {
+    background-color: #8a4d8e;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
     font-size: 1rem;
-  }
-  
-  .professor-sala-provas-content {
-    width: 80%;
-    padding: 20px;
-    background-color: #262626;
-  }
-  
-  .provas-display {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  
-  .avlc-text {
-    color: #fff;
-    margin-top: 40px;
-    margin-bottom: 20px;
-  }
-  
-  .professor-sala-prova-card {
-    flex: 1 1 calc(33.333% - 20px); /* Colocar três colunas no layout */
-    margin-bottom: 20px;
-  }
-  
-  .card-prova-cria {
-    background-color: #202020;
-    color: #fff;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  }
-  
-  .professor-sala-prova-card .card-title {
-    font-size: 1.25rem;
-  }
-  
-  .professor-sala-prova-card .card-text {
-    font-size: 1rem;
-  }
-  
-  .codigo-e-media {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .show-codigo-btn,
-  .show-media-btn {
-    width: 50%;
-    display: inline-block;
-    padding: 15px;
-    font-size: 1rem;
-    color: #fff;
-    background-color: #242424;
-    border: 2px solid #d9baff;
-    border-radius: 25px;
     cursor: pointer;
-    transition: 0.3s;
-    animation: glowing 1.5s infinite;
+    transition: background-color 0.2s ease-in-out;
   }
   
-  .show-codigo-btn:hover, .show-media-btn:hover {
-    background-color: #d9baff;
-    color: #2d2d2d;
+  .prova-botao:hover {
+    background-color: #6b3b6e;
   }
   
-  @keyframes glowing {
-    0% { box-shadow: 0 0 5px #d9baff; }
-    50% { box-shadow: 0 0 20px #d9baff, 0 0 30px #241035; }
-    100% { box-shadow: 0 0 5px #d9baff; }
-  }
-  
-  .codigo-sala, .media-geral {
-    font-size: 1.5rem;
-    color: #fff;
-    padding: 20px;
-    background-color: #333;
-    border-radius: 15px;
-    margin-top: 15px;
-    border: 2px solid #a685b0;
-    width: 100%;
-    text-align: center;
-  }
-  
-  .criar-prova-btn {
-    display: block;
-    margin: 30px auto 0;
-    padding: 15px 30px;
-    font-size: 1.1rem;
-    color: #fff;
-    background-color: #242424;
-    border: 2px solid #d9baff;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-    animation: glowing 1.5s infinite;
-  }
-  
-  .criar-prova-btn:hover {
-    background-color: #d9baff;
-    color: #2d2d2d;
+  .sem-alunos,
+  .sem-provas {
+    color: #6b3b6e;
+    font-style: italic;
   }
   
   .loader-overlay {
@@ -171,20 +25,20 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background-color: rgba(74, 14, 78, 0.5);
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    z-index: 9999;
+    align-items: center;
+    z-index: 1000;
   }
   
   .loader {
-    border: 6px solid #f3f3f3;
-    border-top: 6px solid #000000;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #8a4d8e;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     animation: spin 1s linear infinite;
   }
   
@@ -192,3 +46,10 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+  
+  .loader-overlay p {
+    color: #ffffff;
+    margin-top: 1rem;
+  }
+  
+  

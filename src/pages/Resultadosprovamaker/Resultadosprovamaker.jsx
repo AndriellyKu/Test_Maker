@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import './Resultadosprovamaker.css';
 import Cabecalio from "../../components/Cabecalio";
 import { jsPDF } from "jspdf"; // Importa o jsPDF
-import Axios from 'axios'
+import Axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -12,7 +12,7 @@ const Resultadosprovamaker = () => {
   const { perguntasGeradas, prova } = location.state || {}; // Recebe também o ID da prova
   const [perguntas, setPerguntas] = useState([]);
   const [liberada, setLiberada] = useState(false); // Estado para indicar se a prova foi liberada
-  const provaId = prova._id
+  const provaId = prova._id;
   
   useEffect(() => {
     if (Array.isArray(perguntasGeradas) && perguntasGeradas.length > 0) {
@@ -26,17 +26,25 @@ const Resultadosprovamaker = () => {
         liberada: true, // Define a prova como liberada
       }, {
         headers: {
-          'Authorization': 'Bearer '+localStorage.getItem('token')
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
         }
       });
       if (response.status === 200) {
         setLiberada(true); // Atualiza o estado local
-        alert("Prova liberada com sucesso!");
       }
     } catch (error) {
       console.error("Erro ao liberar a prova:", error);
-      alert("Ocorreu um erro ao liberar a prova. Tente novamente.");
     }
+  };
+
+  const embaralharPerguntas = (perguntas) => {
+    // Embaralha as perguntas usando o algoritmo de Fisher-Yates
+    const embaralhadas = [...perguntas];
+    for (let i = embaralhadas.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [embaralhadas[i], embaralhadas[j]] = [embaralhadas[j], embaralhadas[i]]; // Troca os elementos
+    }
+    return embaralhadas;
   };
 
   const renderResposta = (pergunta) => {
@@ -102,20 +110,21 @@ const Resultadosprovamaker = () => {
     const doc = new jsPDF();
     doc.setFont("helvetica", "normal"); // Fonte normal
 
-    // Tamanho de fonte para o cabeçalho
+    // Embaralhar as perguntas antes de gerar o PDF
+    const perguntasEmbaralhadas = embaralharPerguntas(perguntas);
+
     doc.setFontSize(16);
     doc.text("Resultados da Prova", 20, 20);
 
-    // Adiciona espaços para o aluno preencher
     doc.setFontSize(12);
     doc.text("Nome do Aluno: __________________________", 20, 40);
     doc.text("Turma: _________________________________", 20, 50);
-    doc.text("Data (__/__/__): ________________________", 20, 60);  // Formato de data ajustado
+    doc.text("Data (__/__/__): ________________________", 20, 60);
     doc.text("Escola: ________________________________", 20, 70);
 
-    let yOffset = 30;
+    let yOffset = 80;
 
-    perguntas.forEach((pergunta, index) => {
+    perguntasEmbaralhadas.forEach((pergunta, index) => {
       doc.setFontSize(12); // Perguntas com fonte 12
       doc.text(`${index + 1}. ${pergunta.pergunta}`, 20, yOffset);
       yOffset += 10;
@@ -123,8 +132,8 @@ const Resultadosprovamaker = () => {
       // Caso seja uma pergunta de múltipla escolha ou checkbox, adiciona as alternativas
       if (pergunta.tipo === "multiple-choice" || pergunta.tipo === "checkbox") {
         doc.setFontSize(11); // Alternativas com fonte 11
-        pergunta.resposta.alternativas.forEach((alt, index) => {
-          doc.text(`${index + 1}. ${alt}`, 20, yOffset);
+        pergunta.resposta.alternativas.forEach((alt, altIndex) => {
+          doc.text(`${altIndex + 1}. ${alt}`, 20, yOffset);
           yOffset += 8;
         });
       }

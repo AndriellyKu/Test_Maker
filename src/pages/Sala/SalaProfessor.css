@@ -93,15 +93,10 @@
   font-size: 1rem;
 }
 
-.codigo-e-media {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-}
 
 .show-codigo-btn,
 .show-media-btn {
-  width: 50%;
+  width: 100%;
   display: inline-block;
   padding: 15px;
   font-size: 1rem;
@@ -218,6 +213,11 @@
   max-width: 90%; /* Garante que o formulário não ultrapasse a largura da tela */
 }
 
+.form-criar-prova label{
+  color:#f4f4f4;
+  margin: 2%;
+}
+
 /* Estilo para animação de fade */
 .form-criar-prova.aparece {
   animation: fadeIn 0.3s ease-out;
@@ -247,8 +247,31 @@
 }
 
 .cor-fundo-menu-sala{
-  background-color: #333;
+  background-color: #ffffff;
 }
+
+
+.btn-criar-professor{
+  display: inline-block;
+  padding: 15px;
+  font-size: 1rem;
+  color: #262626;
+  background-color: #d9baff;
+  border: 2px solid #d9baff;
+  border-radius: 30px;
+  margin: 3%;
+}
+
+.btn-cancel-1{
+  display: inline-block;
+  padding: 15px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #242424;
+  border: 2px solid #d9baff;
+  border-radius: 30px;
+}
+
 
 .loader-overlay {
   position: fixed;
@@ -266,7 +289,7 @@
 
 .loader {
   border: 6px solid #f3f3f3;
-  border-top: 6px solid #3498db;
+  border-top: 6px solid #9034db;
   border-radius: 50%;
   width: 40px;
   height: 40px;

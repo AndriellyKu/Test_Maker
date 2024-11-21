@@ -76,7 +76,7 @@ const SalaProfessor = () => {
       );
   
       console.log("Prova criada com sucesso:", response.data);
-      alert("Prova criada com sucesso!");
+    
   
       setProvasCriadas((prev) => [...prev, response.data]);
       setNovaProva({ title: "", description: "" });
@@ -88,9 +88,9 @@ const SalaProfessor = () => {
       console.error("Erro ao criar a prova:", error);
   
       if (error.response && error.response.status === 401) {
-        alert("Erro de autenticação. Faça login novamente.");
+        
       } else {
-        alert("Erro ao criar a prova.");
+        
       }
     }
   };
@@ -168,13 +168,10 @@ const SalaProfessor = () => {
             <button className="show-codigo-btn" onClick={() => setShowCodigo(!showCodigo)}>
               Revelar Código da Sala
             </button>
-            <button className="show-media-btn" onClick={() => setShowMedia(!showMedia)}>
-              Mostrar Média Geral
-            </button>
           </div>
 
           {showCodigo && <div className="codigo-sala">Código da Sala: {codigoSala}</div>}
-          {showMedia && <div className="media-geral">Média Geral: {mediaGeral.toFixed(2)}</div>}
+
 
           <h3 className="avlc-text">Avaliações</h3>
           <div className="row provas-display">
@@ -186,10 +183,10 @@ const SalaProfessor = () => {
                       <h5 className="card-title">{prova.title}</h5>
                       <p className="card-text">{prova.description}</p>
                       <button
-                        className="btn btn-primary"
+                        className="btn "
                         onClick={() => navigate("/resultadosprovamaker", { state: { perguntasGeradas: prova.perguntas, prova: prova, turma, alunosDaTurma:alunos } })}
                       >
-                        Ver Resultados
+                        Ver mais
                       </button>
                     </div>
                   </div>
@@ -232,10 +229,10 @@ const SalaProfessor = () => {
                     className="form-control cor-fundo-menu-sala"
                   />
                 </div>
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn-criar-professor">
                   Criar Prova
                 </button>
-                <button type="button" onClick={toggleForm} className="btn btn-secondary ml-2">
+                <button type="button" onClick={toggleForm} className="btn-cancel-1">
                   Cancelar
                 </button>
               </form>

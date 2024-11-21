@@ -34,35 +34,46 @@ const SalaAluno = () => {
     }
   };
 
-const listarProvasDaTurma = async (turmaId) => {
-  setShowLoader(true);
-  try {
-    const response = await axios.get(`${API_URL}/turmas/${turmaId}/provas`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    // Filtra as provas que estão liberadas
-    const provasLiberadas = response.data.filter(prova => prova.liberada);
-    setProvas(provasLiberadas);
-  } catch (error) {
-    console.error("Erro ao listar provas:", error);
-    setProvas([]);
-  } finally {
-    setShowLoader(false);
-  }
-};
-
+  const listarProvasDaTurma = async (turmaId) => {
+    setShowLoader(true);
+    try {
+      const response = await axios.get(`${API_URL}/turmas/${turmaId}/provas`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // Filtra as provas que estão liberadas
+      const provasLiberadas = response.data.filter((prova) => prova.liberada);
+      setProvas(provasLiberadas);
+    } catch (error) {
+      console.error("Erro ao listar provas:", error);
+      setProvas([]);
+    } finally {
+      setShowLoader(false);
+    }
+  };
 
   useEffect(() => {
     if (turma._id) {
       listarAlunosDaTurma(turma._id); // Função para listar alunos
       listarProvasDaTurma(turma._id); // Função para listar provas
     } else {
-      alert("Erro ao carregar a turma. Redirecionando...");
+    
       navigate("/alunohome");
     }
   }, [turma]);
+
+  // Função para acessar a prova
+  const acessarProva = (prova) => {
+    navigate("/resultadosprovamaker", { 
+      state: { 
+        perguntasGeradas: prova.perguntas, 
+        prova: prova, 
+        turma, 
+        alunosDaTurma: alunos 
+      } 
+    });
+  };
 
   return (
     <div className="professor-sala-container">
@@ -101,6 +112,12 @@ const listarProvasDaTurma = async (turmaId) => {
                     <div className="card-body">
                       <h5 className="card-title">{prova.title}</h5>
                       <p className="card-text">{prova.description}</p>
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => acessarProva(prova)}
+                      >
+                        Acessar Prova
+                      </button>
                     </div>
                   </div>
                 </div>

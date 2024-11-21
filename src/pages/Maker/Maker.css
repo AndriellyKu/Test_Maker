@@ -2,6 +2,7 @@
     margin: 0;
     background-color: #191919;
     font-family: 'Poppins', sans-serif;
+    padding: 0%, 8%;
 }
 
 h1 {
@@ -10,6 +11,28 @@ h1 {
     margin-bottom: 0;
     font-size: 2.7em;
     color: #E0E0E0;
+}
+
+.promptd{
+    background-color: #242424;
+    border: none;
+    color: #717171;
+    width: 1200px;
+}
+
+.corfundofunciona{
+    background-color:#191919;
+}
+
+.promptd:focus{
+    background-color: #242424;
+    border: none;
+    color: #717171;
+    width: 1350px;
+}
+
+.select-tipo-arq{
+    color: #ccc;
 }
 
 h2 {
@@ -45,6 +68,8 @@ h2 {
     justify-content: space-around;
     align-items: center;
 }
+
+
 
 #logo_tm {
     height: 60px;
@@ -91,7 +116,7 @@ h2 {
     color: #E0E0E0;
     transition: transform 0.3s ease-in-out;
 }
-z
+
 .file_desc{
     padding-top: 20px;
     color: #E0E0E0;
@@ -114,12 +139,6 @@ z
     border-width: 1px;
     padding: 2px 12px;
     overflow: hidden;
-}
-
-.container_file_upload {
-    width: 450px;
-    height: 175px;
-    margin-bottom: 40px;
 }
 
 .container_Tipo{
@@ -156,10 +175,132 @@ z
     padding: 10px;
 }
 
+/* Estilo geral para as seções de input */
+#Container_drop {
+    margin-top: 20px;
+  }
+  
+  /* Estilo para os inputs de texto */
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    background-color: #f9f9f9;
+  }
+  
+  textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+  
+  /* Estilo para a seção do prompt */
+  .prompt-section {
+    margin-bottom: 20px;
+  }
+  
+  /* Estilo para a seção de link */
+  input[name="link"] {
+    background-color: #fff;
+    border-color: #ddd;
+  }
+  
+  .container_upload input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+  }
+  
+  /* Estilo para a parte de informações */
+  .container_info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Estilo para a quantidade de perguntas */
+  .Grade_question_info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .quantity_button {
+    background-color: #3c3c3c;
+    border: 1px solid #303030;
+    padding: 5px 10px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #969696;
+    border-radius: 30px;
+    
+  }
+.vigei{
+    display: flex;
+    flex-direction: row;
+    justify-content:center ;
+    align-items: center
+}
+
+.Grade_question_info h3{
+    color: #e3e3e3;
+}
+  
+  .quantity_value {
+    font-size: 18px;
+    margin: 0 10px;
+    color: #969696;
+  }
+  
+  .ano_prova input,
+  button[type="submit"] {
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 16px;
+  }
+  
+  /* Botão de submit */
+  .button-submit {
+    background-color: #9222b1;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+.ano_prova input{
+    background-color: #242424;
+    color: #969696;
+    border: none;
+}
+
+.ano_prova label{
+    color: #969696;
+}
+
+  .button-submit:hover {
+    background-color: #c14fbf;
+  }
+  
+  /* Estilo para campos de ano e nome da prova */
+  .ano_prova input,
+  #title input {
+    margin-bottom: 15px;
+  }
+  
 
 #container_upload_select {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    padding: 0%, 95%;
     width: 100%;
 }
 
@@ -168,6 +309,98 @@ z
     /* Garantir que ambas ocupem largura total nos seus respectivos tamanhos */
     flex: 1;
     margin-right: 10px; /* Ajuste de margem direita para espaçamento */
+}
+
+.quantity_questions{
+    display: flex;
+    flex-direction: column;
+    width: 18vw;
+    background-color: #202020;
+    border-radius: 15px;
+    padding: 10px;
+    top: -5px;
+    position: relative;
+    align-items: center;
+}
+.quantity_questions p{
+    color: #E0E0E0;
+    font-size: 1.2rem;
+}
+.menos_mais{
+    display: flex;
+    flex-direction: row;
+    background-color: #191919;
+    width: 15vw;
+    height: 7vh;
+    border-radius: 100px;
+    justify-content: space-evenly;
+    z-index: 1;
+    position: relative;
+    align-items: center;
+    
+}
+#mais{
+    background-color: transparent;
+    color: #E0E0E0;
+    border-style: none;
+    font-size: 3rem;
+    font-weight: 100;
+}
+#menos{
+    background-color: transparent;
+    color: #E0E0E0;
+    border-style: none;
+    font-size: 3rem;
+    font-weight: 100;
+}
+.container_contagem{
+    background-color: #E0E0E0;
+    width: 60px;
+    height: 60px;
+    border-radius: 100px;
+    z-index: 999;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.container_textarea{
+    width: 94%;
+    height: 92%;
+}
+#contagem{
+    color: #000;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    font-size: 1.7rem;
+    padding: 0%;
+    margin: 0%;
+}
+#text-input{
+    background-color: #242424;
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-size: 1.2rem;
+    color: #E0E0E0;
+}
+#response{
+    height: 20vh;
+    color: #E0E0E0;
+}
+#close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    color: #fff; /* Cor do ícone */
+    font-size: 1.2rem; /* Tamanho menor do ícone */
+    cursor: pointer;
+}
+#close-btn:hover {
+    color: #ccc; /* Cor ao passar o mouse */
 }
 
 .checkbox-container input[type="checkbox"] {
