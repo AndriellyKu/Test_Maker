@@ -187,7 +187,7 @@ const SalaProfessor = () => {
                       <p className="card-text">{prova.description}</p>
                       <button
                         className="btn btn-primary"
-                        onClick={() => navigate("/resultadosprovamaker", { state: { perguntasGeradas: prova.perguntas, turma, alunosDaTurma:alunos } })}
+                        onClick={() => navigate("/resultadosprovamaker", { state: { perguntasGeradas: prova.perguntas, prova: prova, turma, alunosDaTurma:alunos } })}
                       >
                         Ver Resultados
                       </button>
