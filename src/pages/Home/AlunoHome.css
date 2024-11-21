@@ -34,21 +34,6 @@
     transform: scale(1.05);
 }
 
-.created-class-card {
-    background-color: #393839;
-    height: 250px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    position: relative;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.created-class-card:hover {
-    transform: scale(1.05);
-}
 
 .delete-icon {
     position: absolute;
@@ -60,9 +45,6 @@
     cursor: pointer;
 }
 
-.created-class-card:hover .delete-icon {
-    opacity: 1;
-}
 
 .loader-animation .spinner-border {
     width: 3rem;
@@ -89,4 +71,103 @@
     display: inline-block;
     animation: reveal 1.8s cubic-bezier(0.77, 0, 0.175, 1) 0.5s;
     animation-fill-mode: backwards;
+}
+
+
+/* Alteração para os cards no Aluno Home */
+.created-card-body {
+    background-color: #202020; /* Fundo similar ao card do professor */
+    border: 2px solid #E3CDFE; /* Mesmo contorno utilizado nos cards do professor */
+    border-radius: 8px; /* Bordas arredondadas */
+    padding: 20px; /* Mesmo padding */
+    color: #fff; /* Cor do texto */
+    transition: transform 0.4s ease, box-shadow 0.4s ease; /* Animação de transição */
+}
+
+.created-card-body:hover {
+    transform: scale(1.05); /* Aumento ao passar o mouse */
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3); /* Sombra sutil */
+}
+
+/* Ajustes no ícone de excluir */
+.delete-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.2rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.created-card-body:hover .delete-icon {
+    opacity: 1; /* Tornar o ícone visível quando o card é hover */
+}
+
+/* Caso o card tenha uma imagem de fundo, como no exemplo do professor */
+.created-class-card {
+    background-color: #393839;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.created-class-card:hover {
+    transform: scale(1.05); /* Transformação no hover */
+}
+
+/* Corrigir os cards para o aluno */
+.created-class-card h5,
+.created-class-card p {
+    margin: 0;
+    color: #fff; /* Garantir que o texto seja branco */
+}
+
+.created-class-card p {
+    font-size: 0.9rem; /* Ajuste de tamanho da fonte */
+    color: #ccc;
+}
+
+.created-card-body h5 {
+    font-size: 1.2rem;
+    font-weight: 600; /* Maior destaque para o nome da turma */
+    color: #fff; /* Nome da turma em branco */
+}
+
+.created-card-body p {
+    color: #ccc; /* Texto secundário com cor mais suave */
+}
+
+/* Para adicionar o fundo de imagem nos cards (se necessário) */
+.created-class-card {
+    background-size: cover;
+    background-position: center;
+    height: 250px; /* Controlar altura do card */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo dos botões dentro do card */
+.btn-frt-crt {
+    background-color: #E3CDFE;
+    border-radius: 30px;
+    border: none;
+    outline: 2px solid white;
+    width: 14vw;
+    height: 6vh;
+    color: #202020;
+    font-size: 1.2rem;
+    cursor: pointer;
+    outline-offset: 3px;
+}
+
+.btn-frt-crt:hover {
+    background-color: #ccc;
+    transform: scale(1.05); /* Aumento no hover */
 }

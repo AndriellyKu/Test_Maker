@@ -13,6 +13,7 @@ const SalaProfessor = () => {
 
   localStorage.setItem("professorId", turma.professorId);
   localStorage.setItem("turmaId", turma._id);
+  
   const [alunos, setAlunos] = useState([]);
   const [provasCriadas, setProvasCriadas] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -113,10 +114,26 @@ const SalaProfessor = () => {
     }
   };
 
+  // Função para listar as provas da turma
+  async function listarProvasDaTurma(turmaId) {
+    try {
+      const response = await axios.get(`${API_URL}/provas/${turmaId}/provas`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setProvasCriadas(response.data); // Atualiza a lista de provas criadas
+    } catch (error) {
+      console.error("Erro ao listar provas:", error);
+      setProvasCriadas([]); // Em caso de erro, manter lista vazia
+    }
+  }
+
   useEffect(() => {
     if (turma._id) {
       listarAlunosDaTurma(turma._id);
       calcularMediaGeral(turma._id);
+      listarProvasDaTurma(turma._id); // Chama a função para listar as provas
     }
   }, [turma]);
 
@@ -161,17 +178,28 @@ const SalaProfessor = () => {
 
           <h3 className="avlc-text">Avaliações</h3>
           <div className="row provas-display">
-            {provasCriadas.map((prova) => (
-              <div key={prova.id || prova._id} className="col-md-4 professor-sala-prova-card">
-                <div className="card-prova-cria">
-                  <div className="card-body">
-                    <h5 className="card-title">{prova.title}</h5>
-                    <p className="card-text">{prova.description}</p>
+            {provasCriadas.length > 0 ? (
+              provasCriadas.map((prova) => (
+                <div key={prova.id || prova._id} className="col-md-4 professor-sala-prova-card">
+                  <div className="card-prova-cria">
+                    <div className="card-body">
+                      <h5 className="card-title">{prova.title}</h5>
+                      <p className="card-text">{prova.description}</p>
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => navigate("/resultadosprovamaker", { state: { perguntasGeradas: prova.perguntas, turma, alunosDaTurma:alunos } })}
+                      >
+                        Ver Resultados
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p>Nenhuma prova encontrada para esta turma.</p>
+            )}
           </div>
+
 
           <button className="criar-prova-btn" onClick={toggleForm}>
             <span style={{ fontSize: "1.5rem", marginRight: "10px" }}>+</span>

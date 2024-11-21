@@ -8,7 +8,7 @@
 .professor-sala-content {
   display: flex;
   flex-grow: 1;
-  overflow: hidden;
+
 }
 
 .professor-sala-sidebar {

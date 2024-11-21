@@ -53,6 +53,7 @@ const ProfessorHome = () => {
         setTurmas(response.data);
       } catch (error) {
         console.error('Erro ao listar turmas:', error);
+        console.log("API URL:", apiUrl);
       }
     };
 

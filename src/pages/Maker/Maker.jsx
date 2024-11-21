@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react"; // Correto
 import Axios from "axios";
 import "./Maker.css";
 import DropIcon from "../../assets/imagens/drop_down_file_icon.png";
 import Cabecalio from "../../components/Cabecalio";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -24,12 +24,14 @@ const CheckboxOption = ({ id, value, label, onChange }) => (
 );
 
 const Maker = () => {
+  const location = useLocation();
+  const provaId = location.state?.prova?._id;
   const navigate = useNavigate();
   const [questionCount, setQuestionCount] = useState(0);
   const [selectedMethod, setSelectedMethod] = useState("prompt");
   const [formData, setFormData] = useState({
     examYear: "",
-    examName: "Nome da Prova", // Nome da prova pode ser ajustado conforme a lógica da aplicação
+    title: "", // Deixar vazio inicialmente, vamos preencher com a API
     prompt: "",
     link: "",
     documents: [],
@@ -37,8 +39,31 @@ const Maker = () => {
     professorId: localStorage.getItem("professorId"), // Pega o ID do professor do localStorage
     turmaId: localStorage.getItem("turmaId"), // Pega o ID da turma do localStorage
   });
-  
+
   const [loading, setLoading] = useState(false); // Estado do loader
+
+  // Função para buscar o nome da prova a partir do ID
+  const fetchProvaData = async () => {
+    try {
+      const response = await Axios.get(`${API_URL}/provas/${provaId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      setFormData((prevData) => ({
+        ...prevData,
+        title: response.data.title, // Preenche o nome da prova com o dado da API
+      }));
+    } catch (error) {
+      console.error("Erro ao buscar dados da prova:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (provaId) {
+      fetchProvaData();
+    }
+  }, [provaId]);
 
   const increaseCount = () => setQuestionCount((prev) => prev + 1);
   const decreaseCount = () => setQuestionCount((prev) => Math.max(prev - 1, 0));
@@ -63,40 +88,41 @@ const Maker = () => {
         : prev.questionTypes.filter((type) => type !== value),
     }));
   };
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-  
+
     console.log("Dados a serem enviados:", {
       questionCount,
       formData,
       selectedMethod,
     });
-  
+
     try {
       let payload;
-  
-      // Inclui o ID do professor e da turma no payload
+
       if (selectedMethod === "prompt") {
         payload = {
           questionCount,
           questionTypes: formData.questionTypes,
           examYear: formData.examYear,
-          examName: formData.examName,
+          title: formData.title,
           prompt: formData.prompt,
           professorId: formData.professorId,
           turmaId: formData.turmaId,
+          provaId: provaId,
         };
       } else if (selectedMethod === "link") {
         payload = {
           questionCount,
           questionTypes: formData.questionTypes,
           examYear: formData.examYear,
-          examName: formData.examName,
+          title: formData.title,
           link: formData.link,
           professorId: formData.professorId,
           turmaId: formData.turmaId,
+          provaId: provaId,
         };
       } else if (selectedMethod === "documents") {
         const formDataToSend = new FormData();
@@ -113,21 +139,20 @@ const Maker = () => {
         formDataToSend.append("questionTypes", JSON.stringify(formData.questionTypes));
         formDataToSend.append("professorId", formData.professorId);
         formDataToSend.append("turmaId", formData.turmaId);
-  
+        formDataToSend.append("provaId", provaId);
         console.log("FormData a ser enviado:", formDataToSend);
-  
-        const response = await Axios.post(`${API_URL}/provas/gerar-questoes`, formDataToSend, {
+
+        const response = await Axios.put(`${API_URL}/provas/atualizar-prova`, formDataToSend, {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
-  
+
         setLoading(false);
         alert("Prova criada com sucesso!");
         console.log("Resposta da API:", response.data);
-  
-        // Certifique-se de que a resposta contém perguntas e respostas
+
         navigate("/resultadosprovamaker", {
           state: { perguntasGeradas: response.data.perguntas },
         });
@@ -135,18 +160,17 @@ const Maker = () => {
       } else {
         throw new Error("Método de envio inválido.");
       }
-  
-      const response = await Axios.post(`${API_URL}/provas/gerar-questoes`, payload, {
+
+      const response = await Axios.put(`${API_URL}/provas/atualizar-prova`, payload, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-  
+
       setLoading(false);
       alert("Prova gerada com sucesso!");
       console.log("Resposta da API:", response.data);
-  
-      // Certifique-se de que a resposta contém perguntas e respostas
+
       navigate("/resultadosprovamaker", {
         state: { perguntasGeradas: response.data.perguntas },
       });
@@ -156,15 +180,12 @@ const Maker = () => {
       alert("Ocorreu um erro ao gerar a prova.");
     }
   };
- 
-  
-  
 
   return (
     <div className="super-all-container">
       <Cabecalio />
-
-      {loading && <div className="loader">Carregando...</div>} {/* Loader */}
+    
+      {loading && <div className="loader">Carregando...</div>}
 
       <form id="maker-form-pr" onSubmit={handleSubmit}>
         <div className="container_apr">
@@ -275,33 +296,52 @@ const Maker = () => {
         </div>
 
         <div className="container_info">
-          <div className="Grade_group">
+          <div className="Grade_question_info">
+            <h3>Quantidade de perguntas</h3>
+            <div>
+              <button
+                type="button"
+                onClick={decreaseCount}
+                className="quantity_button"
+              >
+                -
+              </button>
+              <span className="quantity_value">{questionCount}</span>
+              <button
+                type="button"
+                onClick={increaseCount}
+                className="quantity_button"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div className="ano_prova">
+            <label htmlFor="ano_prova">Ano da prova</label>
             <input
               type="text"
               name="examYear"
               value={formData.examYear}
               onChange={handleInputChange}
-              placeholder="Para que ano se aplica a prova? (Define a dificuldade)"
+              placeholder="Ano da prova"
             />
           </div>
-          <div className="quantity_questions">
-            <p>N° de questões</p>
-            <div className="menos_mais">
-              <button type="button" onClick={increaseCount}>
-                +
-              </button>
-              <div className="container_contagem">
-                <p>{questionCount}</p>
-              </div>
-              <button type="button" onClick={decreaseCount}>
-                -
-              </button>
-            </div>
+
+          <div className="ano_prova">
+            <label htmlFor="title">Nome da prova</label>
+            <input
+              type="text"
+              name="title"
+              value={formData.title}
+              onChange={handleInputChange}
+              placeholder="Nome da prova"
+            />
           </div>
         </div>
 
-        <button id="generate" type="submit">
-          GERAR
+        <button type="submit" className="button-submit">
+          Criar prova
         </button>
       </form>
     </div>
