@@ -150,7 +150,6 @@ const Maker = () => {
         });
 
         setLoading(false);
-        alert("Prova criada com sucesso!");
         console.log("Resposta da API:", response.data);
 
         navigate("/resultadosprovamaker", {
@@ -168,7 +167,6 @@ const Maker = () => {
       });
 
       setLoading(false);
-      alert("Prova gerada com sucesso!");
       console.log("Resposta da API:", response.data);
 
       navigate("/resultadosprovamaker", {
