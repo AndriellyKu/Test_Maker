@@ -246,6 +246,10 @@
   }
 }
 
+.btn{
+  border: violet;
+}
+
 .cor-fundo-menu-sala{
   background-color: #ffffff;
 }

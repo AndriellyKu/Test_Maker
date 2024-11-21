@@ -113,7 +113,7 @@ const SalaAluno = () => {
                       <h5 className="card-title">{prova.title}</h5>
                       <p className="card-text">{prova.description}</p>
                       <button
-                        className="btn btn-primary"
+                        className="btn"
                         onClick={() => acessarProva(prova)}
                       >
                         Acessar Prova
