@@ -118,7 +118,7 @@ const Cadastro = () => {
               </div>  
               <button className="BtnSubmitC" type="submit">Cadastrar</button>
 
-              <Link className="CadastroLink" to="/login">Já tem uma conta? Faça login</Link>
+              <Link className="CadastroLink" to="/">Já tem uma conta? Faça login</Link>
             </Form>
           )}
         </Formik>

@@ -50,7 +50,7 @@ const Cabecalio = () => {
           <span className="text-danger me-2">{error}</span>
         ) : (
           <>
-            <span className="NomePerfilHeader me-2" style={{ fontSize: '1.1rem', fontWeight: '400' }}>
+            <span className="NomePerfilHeader me-2 text-white"  style={{ fontSize: '1.1rem', fontWeight: '400' }}>
               {username || 'Professor'}
             </span>
             {profilePic ? (
