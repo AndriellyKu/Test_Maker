@@ -154,7 +154,7 @@ const Maker = () => {
         console.log("Resposta da API:", response.data);
 
         navigate("/resultadosprovamaker", {
-          state: { perguntasGeradas: response.data.perguntas },
+          state: { perguntasGeradas: response.data.perguntas, prova: { _id: provaId} },
         });
         return;
       } else {
