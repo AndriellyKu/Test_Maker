@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import './Resultadosprovamaker.css';
 import Cabecalio from "../../components/Cabecalio";
+import { jsPDF } from "jspdf"; // Importa o jsPDF
 
 const Resultadosprovamaker = () => {
   const location = useLocation();
@@ -73,6 +74,44 @@ const Resultadosprovamaker = () => {
     </div>
   );
 
+  // Função para gerar o PDF
+  const gerarProvaPDF = () => {
+    const doc = new jsPDF();
+    doc.setFont("helvetica", "normal"); // Fonte normal
+
+    // Tamanho de fonte para o cabeçalho
+    doc.setFontSize(16);
+    doc.text("Resultados da Prova", 20, 20);
+
+    // Adiciona espaços para o aluno preencher
+    doc.setFontSize(12);
+    doc.text("Nome do Aluno: __________________________", 20, 40);
+    doc.text("Turma: _________________________________", 20, 50);
+    doc.text("Data (__/__/__): ________________________", 20, 60);  // Formato de data ajustado
+    doc.text("Escola: ________________________________", 20, 70);
+
+    let yOffset = 80;
+
+    perguntas.forEach((pergunta, index) => {
+      doc.setFontSize(12); // Perguntas com fonte 12
+      doc.text(`${index + 1}. ${pergunta.pergunta}`, 20, yOffset);
+      yOffset += 10;
+
+      // Caso seja uma pergunta de múltipla escolha ou checkbox, adiciona as alternativas
+      if (pergunta.tipo === "multiple-choice" || pergunta.tipo === "checkbox") {
+        doc.setFontSize(11); // Alternativas com fonte 11
+        pergunta.resposta.alternativas.forEach((alt, index) => {
+          doc.text(`${index + 1}. ${alt}`, 20, yOffset);
+          yOffset += 8;
+        });
+      }
+
+      yOffset += 10; // Espaço entre perguntas
+    });
+
+    doc.save("prova_resultados.pdf");
+  };
+
   return (
     <>
       <Cabecalio />
@@ -83,7 +122,7 @@ const Resultadosprovamaker = () => {
         </div>
         <button
           className="salvar-alteracoes"
-          onClick={() => alert("Função para salvar em PDF será implementada.")}
+          onClick={gerarProvaPDF} // Chama a função para gerar o PDF
         >
           Salvar Prova em PDF
         </button>

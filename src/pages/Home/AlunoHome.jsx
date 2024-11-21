@@ -115,10 +115,6 @@ const AlunoHome = () => {
             className="create-card animate__animated animate__fadeIn"
             onClick={toggleCreateForm}
           >
-            <div className="create-card-body">
-              <i className="bi bi-plus-circle-fill display-1"></i>
-              <p className="mt-3">Clique para entrar em uma nova turma</p>
-            </div>
           </div>
         ) : (
           <div
