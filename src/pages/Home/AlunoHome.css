@@ -108,29 +108,3 @@
     opacity: 1;
   }
   
-  .loader-animation .spinner-border { 
-    width: 3rem;
-    height: 3rem;
-    animation: spinner-grow 0.8s ease-in-out infinite;
-  }
-  
-  @keyframes spinner-grow {
-    0% {
-      transform: scale(0.5);
-      opacity: 0.6;
-    }
-    50% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(0.5);
-      opacity: 0.6;
-    }
-  }
-  
-  .loader-animation span {
-    display: inline-block;
-    animation: reveal 1.8s cubic-bezier(0.77, 0, 0.175, 1) 0.5s;
-    animation-fill-mode: backwards;
-  }
