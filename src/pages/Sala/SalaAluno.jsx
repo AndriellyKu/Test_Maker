@@ -34,25 +34,25 @@ const SalaAluno = () => {
     }
   };
 
-  const listarProvasDaTurma = async (turmaId) => {
-    setShowLoader(true);
-    try {
-      const response = await axios.get(`${API_URL}/turmas/${turmaId}/provas`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      // Filtra as provas que estão liberadas
-      const provasLiberadas = response.data.filter(prova => prova.liberada);
-      setProvas(provasLiberadas);
-    } catch (error) {
-      console.error("Erro ao listar provas:", error);
-      setProvas([]);
-    } finally {
-      setShowLoader(false);
-    }
-  };
-  
+const listarProvasDaTurma = async (turmaId) => {
+  setShowLoader(true);
+  try {
+    const response = await axios.get(`${API_URL}/turmas/${turmaId}/provas`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    // Filtra as provas que estão liberadas
+    const provasLiberadas = response.data.filter(prova => prova.liberada);
+    setProvas(provasLiberadas);
+  } catch (error) {
+    console.error("Erro ao listar provas:", error);
+    setProvas([]);
+  } finally {
+    setShowLoader(false);
+  }
+};
+
 
   useEffect(() => {
     if (turma._id) {

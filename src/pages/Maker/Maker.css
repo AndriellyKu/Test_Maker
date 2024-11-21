@@ -92,6 +92,23 @@ h2 {
     transition: transform 0.3s ease-in-out;
 }
 
+#maker-form-pr{
+    padding: 2%;
+}
+
+.form-control{
+    background-color: #242424;
+    color: #929292;
+    outline: none;
+    width: 1400px;
+    border: none;
+}
+
+.form-control:focus {
+    background-color: #242424;  /* Garante que a cor de fundo permaneça a mesma */
+    color: #929292;             /* Garante que a cor do texto permaneça a mesma */
+}
+
 .file_desc{
     padding-top: 20px;
     color: #E0E0E0;

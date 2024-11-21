@@ -250,12 +250,6 @@ const Maker = () => {
                 label="Caixa de seleção"
                 onChange={handleCheckboxChange}
               />
-              <CheckboxOption
-                id="checkbox05"
-                value="checkbox2"
-                label="Outra caixa"
-                onChange={handleCheckboxChange}
-              />
             </div>
           </div>
         </div>
